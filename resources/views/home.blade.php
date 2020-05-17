@@ -55,12 +55,12 @@
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button"
+                <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" style="margin-right: 50px;"
                    aria-haspopup="true" aria-expanded="false">
                     <img src="img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
-                    <span class="d-md-down-none">admin </span>
+                    <span class="d-md-down-none">{{$user->name}} </span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right">
+                <div class="dropdown-menu dropdown-menu-right" style="margin-right: 50px;">
                     <div class="dropdown-header text-center">
                         <strong>Cuenta</strong>
                     </div>
@@ -79,13 +79,8 @@
     </header>
 
     <div class="app-body">
-        <!-- Contenido Principal -->
         <sidebar></sidebar>
         <router-view></router-view>
-        <!-- /Fin del contenido principal -->
-        {{--        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">--}}
-        {{--            @csrf--}}
-        {{--        </form>--}}
     </div>
 
 </div>

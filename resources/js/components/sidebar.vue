@@ -56,7 +56,7 @@
                     <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-pie-chart"></i> Reportes</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="icon-chart"></i> Reporte Ingresos</a>
+                            <a class="nav-link active" href="#"><i class="icon-chart"></i> Reporte Ingresos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#"><i class="icon-chart"></i> Reporte Ventas</a>

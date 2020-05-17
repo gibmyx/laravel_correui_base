@@ -21483,7 +21483,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("ul", { staticClass: "nav-dropdown-items" }, [
         _c("li", { staticClass: "nav-item" }, [
-          _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+          _c("a", { staticClass: "nav-link active", attrs: { href: "#" } }, [
             _c("i", { staticClass: "icon-chart" }),
             _vm._v(" Reporte Ingresos")
           ])
