@@ -27,7 +27,7 @@
         </button>
         <ul class="nav navbar-nav d-md-down-none">
             <li class="nav-item px-3">
-                <a class="nav-link" href="#">Escritorio</a>
+                <router-link :to="{name: 'escritorio'}" class="nav-link">Escritorio</router-link>
             </li>
             <li class="nav-item px-3">
                 <a class="nav-link" href="#">Configuraciones</a>
@@ -71,10 +71,13 @@
     </header>
 
     <div class="app-body">
-    @include('plantilla/sidebar')
-    <!-- Contenido Principal -->
-    @yield('contenido')
-    <!-- /Fin del contenido principal -->
+        <!-- Contenido Principal -->
+        <sidebar></sidebar>
+        <router-view></router-view>
+        <!-- /Fin del contenido principal -->
+        {{--        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">--}}
+        {{--            @csrf--}}
+        {{--        </form>--}}
     </div>
 
 </div>
