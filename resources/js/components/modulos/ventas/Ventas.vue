@@ -3,14 +3,14 @@
         <!-- Breadcrumb -->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">Home</li>
-            <li class="breadcrumb-item">Almacén</li>
-            <li class="breadcrumb-item active">Compras</li>
+            <li class="breadcrumb-item">Ventas</li>
+            <li class="breadcrumb-item active">Ventas</li>
         </ol>
         <div class="container-fluid">
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fa-align-justify"></i> Compras
+                    <i class="fa fa-align-justify"></i> Ventas
                 </div>
                 <div class="card-body">
                     <div class="form-group row">
@@ -30,7 +30,7 @@
 
 <script>
     export default {
-        name: "Categorias"
+        name: "Ventas"
     }
 </script>
 
