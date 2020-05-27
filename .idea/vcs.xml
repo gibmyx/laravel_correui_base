@@ -3,5 +3,7 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../flexio" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../proyecto_sii" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../solicitudes" vcs="Git" />
   </component>
 </project>

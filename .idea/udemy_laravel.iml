@@ -88,6 +88,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="proyecto_sii" />
+    <orderEntry type="module" module-name="solicitudes" />
     <orderEntry type="module" module-name="flexio" />
   </component>
 </module>

@@ -71,6 +71,9 @@
                     <a class="nav-link" href="#"><i class="icon-info"></i> Acerca de...<span
                         class="badge badge-info">IT</span></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link"  href="#" @click.prevent="router_link('herramientas')" ><i class="icon-info"></i> Herramientas</a>
+                </li>
             </ul>
         </nav>
         <button class="sidebar-minimizer brand-minimizer" type="button"></button>

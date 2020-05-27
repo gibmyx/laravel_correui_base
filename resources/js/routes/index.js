@@ -14,6 +14,7 @@ import Roles from "../components/modulos/roles/router";
 import Usuarios from "../components/modulos/usuarios/router";
 import ReporteIngreso from "../components/modulos/reporte_ingresos/router";
 import ReporteVentas from "../components/modulos/reporte_ventas/router";
+import Herramientas from "../components/modulos/herramientas/router";
 
 const router = new VueRouter({
     mode: 'history',
@@ -29,6 +30,7 @@ const router = new VueRouter({
         ...Usuarios,
         ...ReporteIngreso,
         ...ReporteVentas,
+        ...Herramientas,
         //mensaje 404
         {
             path: '*',
