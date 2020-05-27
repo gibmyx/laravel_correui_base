@@ -20,3 +20,6 @@ Auth::routes();
 
 Route::get('/{any}', 'HomeController@index')
     ->where('any', '.*');
+
+//RUTAS PARA PETICIONES HTTP
+Route::post('/homecontroller/prueba_peticion', 'HomeController@prueba_peticion');

@@ -14,23 +14,37 @@
                 <div class="card-body">
                     <div class="form-group row">
                         <div class="col-md-6">
-                            <label>Editor de texto "wysiwyg" <span required="" aria-required="true">*</span></label>
-                            <wysiwyg />
+                            <label>Editor de texto "wysiwyg"</label>
+                            <wysiwyg/>
                         </div>
-                    </div> <div class="form-group row">
+                    </div>
+                    <div class="form-group row">
                         <div class="col-md-6">
-                            <button @click.prevent="successToast">
-                                toastr success
-                            </button>
-                            <button @click.prevent="infoToast">
-                                toastr info
-                            </button>
-                            <button @click.prevent="warnToast">
-                                toastr warn
-                            </button>
-                            <button @click.prevent="errorToast">
-                                toastr error
-                            </button>
+                            <label>Notificaciones Toast</label>
+                            <div class="col-md-6">
+                                <button @click.prevent="successToast">
+                                    toastr success
+                                </button>
+                                <button @click.prevent="infoToast">
+                                    toastr info
+                                </button>
+                                <button @click.prevent="warnToast">
+                                    toastr warn
+                                </button>
+                                <button @click.prevent="errorToast">
+                                    toastr error
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label>Peticion Ajax</label>
+                            <div class="col-md-6">
+                                <button @click.prevent="enviarConsole">
+                                    Peticon
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -47,28 +61,41 @@
         methods: {
             successToast() {
                 this.$toast.success({
-                    title:'Probando Toast',
-                    message:'esto es un toast de prueba'
+                    title: 'Probando Toast',
+                    message: 'esto es un toast de prueba'
                 });
             },
             infoToast() {
                 this.$toast.info({
-                    title:'Probando Toast',
-                    message:'esto es un toast de prueba'
+                    title: 'Probando Toast',
+                    message: 'esto es un toast de prueba'
                 });
             },
             warnToast() {
                 this.$toast.warn({
-                    title:'Probando Toast',
-                    message:'esto es un toast de prueba'
+                    title: 'Probando Toast',
+                    message: 'esto es un toast de prueba'
                 });
             },
             errorToast() {
                 this.$toast.error({
-                    title:'Probando Toast',
-                    message:'esto es un toast de prueba'
+                    title: 'Probando Toast',
+                    message: 'esto es un toast de prueba'
                 });
             },
+            enviarConsole() {
+                let tkn = window.tkn;
+                let formData = new FormData();
+                formData.append("erptkn", tkn);
+
+                Vue.http.post('/homecontroller/prueba_peticion').then((response) => {
+                    let mensaje = response.data.mensaje;
+                    this.$toast.error({
+                        title: 'Probando Toast',
+                        message: mensaje,
+                    });
+                });
+            }
         }
     }
 </script>

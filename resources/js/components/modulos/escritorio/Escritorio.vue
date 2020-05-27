@@ -26,7 +26,7 @@
                                 </select>
                                 <input type="text" id="texto" name="texto" class="form-control"
                                        placeholder="Texto a buscar">
-                                <button type="submit" class="btn btn-primary" @click.prevent="enviarConsole"><i class="fa fa-search"></i> Buscar
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Buscar
                                 </button>
                             </div>
                         </div>
@@ -200,14 +200,7 @@
             AgregarCategoria() {
                 this.$refs.agregarcategoria.show();
             },
-            enviarConsole(){
-                let tkn = window.tkn;
-                axios.get('/formulario/guardar').then((response) => {
-                    let mensaje = response.data.mensaje;
-                }).catch((error) => {
-                    console.log('error');
-                });
-            }
+
         },
     }
 </script>

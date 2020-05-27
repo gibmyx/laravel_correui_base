@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class HomeController extends Controller
+class ApiController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -20,24 +21,15 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
-    {
-        $user = Auth::user();
-        return view('home', compact('user'));
-    }
 
-    public function prueba_peticion()
+    public function guardar()
     {
         $response = [
             'mensaje' => 'mensaje de prueba',
         ];
         return response()->json($response, 200);
     }
+
 
 //    public function guardar_old()
 //    {
