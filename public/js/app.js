@@ -3257,7 +3257,8 @@ __webpack_require__.r(__webpack_exports__);
 
       var tkn = window.tkn;
       var formData = new FormData();
-      formData.append("erptkn", tkn);
+      formData.append("erptkn", tkn); //PARA PETICION NORMAR VER ARCHIVO: ROUTER => WEB
+
       Vue.http.post('/homecontroller/prueba_peticion').then(function (response) {
         var mensaje = response.data.mensaje;
 
@@ -3265,7 +3266,14 @@ __webpack_require__.r(__webpack_exports__);
           title: 'Probando Toast',
           message: mensaje
         });
-      });
+      }); //PARA PETICIONES API VER ARCHIVO: ROUTER => API
+      // Vue.http.post('/api/formulario/prueba_peticion').then((response) => {
+      //     let mensaje = response.data.mensaje;
+      //     this.$toast.error({
+      //         title: 'Probando Toast',
+      //         message: mensaje,
+      //     });
+      // });
     }
   }
 });

@@ -88,6 +88,7 @@
                 let formData = new FormData();
                 formData.append("erptkn", tkn);
 
+                //PARA PETICION NORMAR VER ARCHIVO: ROUTER => WEB
                 Vue.http.post('/homecontroller/prueba_peticion').then((response) => {
                     let mensaje = response.data.mensaje;
                     this.$toast.error({
@@ -95,6 +96,15 @@
                         message: mensaje,
                     });
                 });
+
+                //PARA PETICIONES API VER ARCHIVO: ROUTER => API
+                // Vue.http.post('/api/formulario/prueba_peticion').then((response) => {
+                //     let mensaje = response.data.mensaje;
+                //     this.$toast.error({
+                //         title: 'Probando Toast',
+                //         message: mensaje,
+                //     });
+                // });
             }
         }
     }

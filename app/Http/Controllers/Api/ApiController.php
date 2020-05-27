@@ -22,7 +22,7 @@ class ApiController extends Controller
     }
 
 
-    public function guardar()
+    public function prueba_peticion()
     {
         $response = [
             'mensaje' => 'mensaje de prueba',
