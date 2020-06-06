@@ -59,7 +59,7 @@
                             <a class="nav-link"  href="#" @click.prevent="router_link('repotes_ingresos')" ><i class="icon-chart"></i> Reporte de ingresos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link"  href="#" @click.prevent="router_link('repotes_ventas')" ><i class="icon-chart"></i> Reporte Ingresos</a>
+                            <a class="nav-link"  href="#" @click.prevent="router_link('repotes_ventas')" ><i class="icon-chart"></i> Reporte de ventas</a>
                         </li>
                     </ul>
                 </li>

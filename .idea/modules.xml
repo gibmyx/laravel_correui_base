@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../flexio/.idea/flexio.iml" filepath="$PROJECT_DIR$/../flexio/.idea/flexio.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../proyecto_sii/.idea/proyecto_sii.iml" filepath="$PROJECT_DIR$/../proyecto_sii/.idea/proyecto_sii.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../solicitudes/.idea/solicitudes.iml" filepath="$PROJECT_DIR$/../solicitudes/.idea/solicitudes.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/udemy_laravel.iml" filepath="$PROJECT_DIR$/.idea/udemy_laravel.iml" />
     </modules>
   </component>

@@ -23812,7 +23812,7 @@ var render = function() {
                 },
                 [
                   _c("i", { staticClass: "icon-chart" }),
-                  _vm._v(" Reporte Ingresos")
+                  _vm._v(" Reporte de ventas")
                 ]
               )
             ])

@@ -11,7 +11,7 @@ window.tkn = document.head.querySelector('meta[name="csrf-token"]').content;
 
 //importacion de estilos
 import "vue-wysiwyg/dist/vueWysiwyg.css";
-import 'cxlt-vue2-toastr/dist/css/cxlt-vue2-toastr.css'
+import 'cxlt-vue2-toastr/dist/css/cxlt-vue2-toastr.css';
 
 //components
 Vue.component('select2', require('./components/helpers/Select2'));
