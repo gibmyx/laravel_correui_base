@@ -22,5 +22,5 @@ Route::get('/{any}', 'HomeController@index')
     ->where('any', '.*');
 
 //RUTA DEL MODULO HERRAMIENTA
-require base_path('/app/Http/Modulos/Herramientas/Routers/WebRouter.php');
+require base_path('/app/Http/Controllers/Herramientas/Routers/WebRouter.php');
 
