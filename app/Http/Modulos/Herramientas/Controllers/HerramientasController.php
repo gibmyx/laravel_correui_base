@@ -1,5 +1,6 @@
 <?php
 
+namespace App\Http\Modulos\Herramientas\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

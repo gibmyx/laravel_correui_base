@@ -21,5 +21,6 @@ Auth::routes();
 Route::get('/{any}', 'HomeController@index')
     ->where('any', '.*');
 
-//RUTAS PARA PETICIONES HTTP
-Route::post('/homecontroller/prueba_peticion', 'HomeController@prueba_peticion');
+//RUTA DEL MODULO HERRAMIENTA
+require base_path('/app/Http/Modulos/Herramientas/Routers/WebRouter.php');
+

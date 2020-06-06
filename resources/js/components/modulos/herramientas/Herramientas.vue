@@ -89,7 +89,7 @@
                 formData.append("erptkn", tkn);
 
                 //PARA PETICION NORMAR VER ARCHIVO: ROUTER => WEB
-                Vue.http.post('/homecontroller/prueba_peticion').then((response) => {
+                Vue.http.post('/herramientas/prueba_peticion').then((response) => {
                     let mensaje = response.data.mensaje;
                     this.$toast.error({
                         title: 'Probando Toast',

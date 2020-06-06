@@ -3259,7 +3259,7 @@ __webpack_require__.r(__webpack_exports__);
       var formData = new FormData();
       formData.append("erptkn", tkn); //PARA PETICION NORMAR VER ARCHIVO: ROUTER => WEB
 
-      Vue.http.post('/homecontroller/prueba_peticion').then(function (response) {
+      Vue.http.post('/herramientas/prueba_peticion').then(function (response) {
         var mensaje = response.data.mensaje;
 
         _this.$toast.error({

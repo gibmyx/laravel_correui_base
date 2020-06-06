@@ -1,3 +1,6 @@
 <?php
 
-Route::post('/homecontroller/prueba_peticion', 'Herramientas/Controllers/HerramientasController@prueba_peticion');
+//RUTAS PARA PETICIONES HTTP
+Route::post('/herramientas/prueba_peticion', [
+    'uses' => 'Herramientas\Controllers\HerramientasController@prueba_peticion'
+]);
