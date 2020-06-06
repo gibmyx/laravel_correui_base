@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class HerramientasController extends Controller
 {
 
-    public function prueba_peticion()
+    public function prueba_peticion(Request $request)
     {
         $response = [
             'mensaje' => 'Esta funcionando Fino',
