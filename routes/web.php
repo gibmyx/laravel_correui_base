@@ -23,4 +23,6 @@ Route::get('/{any}', 'HomeController@index')
 
 //RUTA DEL MODULO HERRAMIENTA
 require base_path('/app/Http/Controllers/Herramientas/Routers/WebRouter.php');
+//RUTA DEL MODULO CATEGORIAS
+require base_path('/app/Http/Controllers/Categorias/Routers/WebRouter.php');
 

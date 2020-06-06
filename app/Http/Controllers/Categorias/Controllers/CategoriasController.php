@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Herramientas\Controllers;
+namespace App\Http\Controllers\Categorias\Controllers;
 
+use App\Http\Controllers\Categorias\FormRequest\GuardarCategoria;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +11,7 @@ use App\Categoria;
 class CategoriasController extends Controller
 {
 
-    public function ajax_guradar(Request $request)
+    public function ajax_guardar(Request $request)
     {
         $error = '';
 

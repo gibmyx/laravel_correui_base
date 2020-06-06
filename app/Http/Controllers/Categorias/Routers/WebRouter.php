@@ -1,9 +1,9 @@
 <?php
 
 //RUTAS PARA PETICIONES HTTP
-Route::post('/categoria/ajax_guradar', [
-    'uses' => 'Herramientas\Controllers\CategoriasController@ajax_guradar'
+Route::post('/categorias/ajax_guardar', [
+    'uses' => 'Categorias\Controllers\CategoriasController@ajax_guardar'
 ]);
-Route::post('/categoria/ajax_listar_categoria', [
-    'uses' => 'Herramientas\Controllers\CategoriasController@ajax_listar_categoria'
+Route::post('/categorias/ajax_listar_categoria', [
+    'uses' => 'Categorias\Controllers\CategoriasController@ajax_listar_categoria'
 ]);

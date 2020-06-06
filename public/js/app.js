@@ -3257,9 +3257,12 @@ __webpack_require__.r(__webpack_exports__);
 
       var tkn = window.tkn;
       var formData = new FormData();
-      formData.append("erptkn", tkn); //PARA PETICION NORMAR VER ARCHIVO: ROUTER => WEB
+      formData.append("id", '');
+      formData.append("nombre", 'categoria_1');
+      formData.append("descripcion", 'se esta probando la peticion ajax');
+      formData.append("condicion", 1); //PARA PETICION NORMAR VER ARCHIVO: ROUTER => WEB
 
-      Vue.http.post('/herramientas/prueba_peticion').then(function (response) {
+      Vue.http.post('/categorias/ajax_guardar', formData).then(function (response) {
         var mensaje = response.data.mensaje;
 
         _this.$toast.error({
