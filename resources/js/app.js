@@ -41,13 +41,14 @@ Vue.use(CxltToastr, toastrConfigs);
 Vue.use(VueResource);
 
 
+
+Vue.component('sidebar', require('./components/sidebar.vue').default);
+Vue.component('navbar', require('./components/navbar.vue').default);
+
 Vue.http.interceptors.push((request, next) => {
     request.headers.set('X-CSRF-TOKEN', document.head.querySelector('meta[name="csrf-token"]').content);
     next();
 });
-
-Vue.component('sidebar', require('./components/sidebar.vue').default);
-
 
 const app = new Vue({
     el: '#app',
