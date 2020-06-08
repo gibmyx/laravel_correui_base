@@ -31,7 +31,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" v-text="id == '' ? 'Guardar' : 'Actualizar'"></button>
+                    <button type="button" class="btn btn-primary" @click.prevent="GuardarCategoria" v-text="id == '' ? 'Guardar' : 'Actualizar'"></button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -68,6 +68,34 @@
                 let modal = $('#' + this.name + 'Modal');
                 modal.modal('show');
             },
+            GuardarCategoria() {
+
+                let formData = new FormData();
+                formData.append("id", this.id);
+                formData.append("nombre", this.nombre);
+                formData.append("descripcion", this.descripcion);
+                formData.append("condicion", this.condicion);
+
+                //PARA PETICION NORMAR VER ARCHIVO: ROUTER => WEB
+                Vue.http.post('/categorias/ajax_guardar', formData).then((response) => {
+                    let mensaje = response.data.message;
+                    this.$toast.success({
+                        title: 'Éxito',
+                        message: mensaje,
+                    });
+                    this.$emit('listarCategoria');
+                }).catch((error) => {
+                    console.log(error);
+                    let mensaje = error.body.message;
+                    this.$toast.error({
+                        title: 'Error',
+                        message: mensaje,
+                    });
+                }).finally(() => {
+                    this.hide();
+                });
+
+            },
             asignarDatos(categoria) {
                 if(categoria == null){
                     this.id = '';
@@ -84,16 +112,12 @@
         },
         watch: {
             id(val){
-                console.log('id ', val);
             },
             nombre(val){
-                console.log('nombre ', val);
             },
             descripcion(val){
-                console.log('descripcion ', val);
             },
             condicion(val){
-                console.log('condicion ', val);
             },
         }
     }

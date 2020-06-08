@@ -21,7 +21,7 @@ class CategoriasController extends Controller
             $error .= $e->getMessage();
         }
         $response = [
-            'message' => strlen($error) ? $error : '<b>Éxito!</b><br> Se han guardado sus cambios.',
+            'message' => strlen($error) ? $error : 'Se han guardado sus cambios.',
             'code' => strlen($error) ? 401 : 201,
         ];
         return response()->json($response, $response['code']);

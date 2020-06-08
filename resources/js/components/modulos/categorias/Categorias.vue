@@ -78,7 +78,7 @@
 
 
         <!--Modal de agregar categoria-->
-        <modal-categoria :name="'ModalCategoria'"
+        <modal-categoria :name="'ModalCategoria'" v-on:listarCategoria="listarCategoria"
                            ref="modalcategoria"></modal-categoria>
     </main>
 </template>

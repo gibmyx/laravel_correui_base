@@ -16,6 +16,7 @@ class GuardarCategoria extends Guardar
 
     function create($params)
     {
+        $params['condicion'] = 1;
         return DB::transaction(function () use ($params) {
             $model = $this->model;
             $object = $model::create($params);

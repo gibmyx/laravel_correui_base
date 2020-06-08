@@ -2828,6 +2828,16 @@ __webpack_require__.r(__webpack_exports__);
       condicion: ''
     };
   },
+  mounted: function mounted() {
+    var _this = this;
+
+    Vue.nextTick(function () {
+      _this.id = _this.o.id;
+      _this.nombre = _this.o.nombre;
+      _this.descripcion = _this.o.descripcion;
+      _this.condicion = _this.o.condicion;
+    });
+  },
   methods: {
     EditarCategoria: function EditarCategoria() {
       this.$emit('editarCategoria', this.o);
@@ -3044,6 +3054,36 @@ __webpack_require__.r(__webpack_exports__);
       var modal = $('#' + this.name + 'Modal');
       modal.modal('show');
     },
+    GuardarCategoria: function GuardarCategoria() {
+      var _this = this;
+
+      var formData = new FormData();
+      formData.append("id", this.id);
+      formData.append("nombre", this.nombre);
+      formData.append("descripcion", this.descripcion);
+      formData.append("condicion", this.condicion); //PARA PETICION NORMAR VER ARCHIVO: ROUTER => WEB
+
+      Vue.http.post('/categorias/ajax_guardar', formData).then(function (response) {
+        var mensaje = response.data.message;
+
+        _this.$toast.success({
+          title: 'Éxito',
+          message: mensaje
+        });
+
+        _this.$emit('listarCategoria');
+      })["catch"](function (error) {
+        console.log(error);
+        var mensaje = error.body.message;
+
+        _this.$toast.error({
+          title: 'Error',
+          message: mensaje
+        });
+      })["finally"](function () {
+        _this.hide();
+      });
+    },
     asignarDatos: function asignarDatos(categoria) {
       if (categoria == null) {
         this.id = '';
@@ -3059,18 +3099,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   watch: {
-    id: function id(val) {
-      console.log('id ', val);
-    },
-    nombre: function nombre(val) {
-      console.log('nombre ', val);
-    },
-    descripcion: function descripcion(val) {
-      console.log('descripcion ', val);
-    },
-    condicion: function condicion(val) {
-      console.log('condicion ', val);
-    }
+    id: function id(val) {},
+    nombre: function nombre(val) {},
+    descripcion: function descripcion(val) {},
+    condicion: function condicion(val) {}
   }
 });
 
@@ -22754,7 +22786,8 @@ var render = function() {
       _vm._v(" "),
       _c("modal-categoria", {
         ref: "modalcategoria",
-        attrs: { name: "ModalCategoria" }
+        attrs: { name: "ModalCategoria" },
+        on: { listarCategoria: _vm.listarCategoria }
       })
     ],
     1
@@ -23050,6 +23083,12 @@ var render = function() {
                 attrs: { type: "button" },
                 domProps: {
                   textContent: _vm._s(_vm.id == "" ? "Guardar" : "Actualizar")
+                },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.GuardarCategoria($event)
+                  }
                 }
               })
             ])

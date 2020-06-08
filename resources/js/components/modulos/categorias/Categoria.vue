@@ -35,6 +35,15 @@
             }
         },
 
+        mounted() {
+            Vue.nextTick(() => {
+                this.id = this.o.id;
+                this.nombre = this.o.nombre;
+                this.descripcion = this.o.descripcion;
+                this.condicion = this.o.condicion;
+            });
+        },
+
         methods: {
             EditarCategoria() {
                 this.$emit('editarCategoria', this.o);
