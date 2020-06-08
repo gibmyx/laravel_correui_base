@@ -27,6 +27,25 @@ class CategoriasController extends Controller
         return response()->json($response, $response['code']);
     }
 
+    public function ajax_update_state(Request $request)
+    {
+        $error = '';
+        $params = [
+          'id' => $request->id,
+          'condicion' => $request->condicion,
+        ];
+        try {
+            (new GuardarCategoria())->save($params);
+        } catch (\Exception $e) {
+            $error .= $e->getMessage();
+        }
+        $response = [
+            'message' => strlen($error) ? $error : '<b>Éxito!</b><br> Se han guardado sus cambios.',
+            'code' => strlen($error) ? 401 : 201,
+        ];
+        return response()->json($response, $response['code']);
+    }
+
     public function ajax_listar_categoria()
     {
         $error = '';
