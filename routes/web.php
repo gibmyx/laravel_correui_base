@@ -16,13 +16,18 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
-Auth::routes();
+Route::get('/js/cxlt-vue2-toastr.js.map', function () {
+    return redirect('/escritorio');
+});
 
-Route::get('/{any}', 'HomeController@index')
-    ->where('any', '.*');
+Auth::routes();
 
 //RUTA DEL MODULO HERRAMIENTA
 require base_path('/app/Http/Controllers/Herramientas/Routers/WebRouter.php');
 //RUTA DEL MODULO CATEGORIAS
 require base_path('/app/Http/Controllers/Categorias/Routers/WebRouter.php');
+
+Route::get('/{any}', 'HomeController@index')
+    ->where('any', '.*');
+
 

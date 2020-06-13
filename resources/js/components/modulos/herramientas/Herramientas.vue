@@ -39,9 +39,19 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6">
-                            <label>Peticion Ajax</label>
+                            <label>Peticion Ajax Post</label>
                             <div class="col-md-6">
                                 <button @click.prevent="enviarConsole">
+                                    Peticon
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label>Peticion Ajax Get</label>
+                            <div class="col-md-6">
+                                <button @click.prevent="peticionGet">
                                     Peticon
                                 </button>
                             </div>
@@ -93,7 +103,7 @@
 
                 //PARA PETICION NORMAR VER ARCHIVO: ROUTER => WEB
                 Vue.http.post('/categorias/ajax_guardar', formData).then((response) => {
-                    let mensaje = response.data.mensaje;
+                    let mensaje = response.data.message;
                     this.$toast.error({
                         title: 'Probando Toast',
                         message: mensaje,
@@ -108,6 +118,16 @@
                 //         message: mensaje,
                 //     });
                 // });
+            },
+            peticionGet() {
+                //PARA PETICION NORMAR VER ARCHIVO: ROUTER => WEB
+                Vue.http.get('/herramientas/prueba_peticion_get').then((response) => {
+                    let mensaje = response.data.mensaje;
+                    this.$toast.error({
+                        title: 'Probando Toast',
+                        message: mensaje ? 'si' : 'no',
+                    });
+                });
             }
         }
     }

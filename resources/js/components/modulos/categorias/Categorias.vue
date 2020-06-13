@@ -100,7 +100,49 @@
                 nombre: '',
                 descripcion: '',
                 categorias: [],
+
+                pagination: {
+                    'total': 0,
+                    'current_page': 0,
+                    'per_page': 0,
+                    'last_page': 0,
+                    'from': 0,
+                    'to': 0,
+                },
+                offset: 3
             }
+        },
+
+        computed: {
+
+            isActived: function () {
+              return this.pagination.current_page;
+            },
+
+            pagesNumber: function () {
+                if(!this.pagination.to){
+                    return [];
+                }
+
+                let from = this.pagination.current_page - this.offset;
+                if(from < 1){
+                    from = 1;
+                }
+
+                let to = from + (this.offset * 2);
+                if(to >= this.pagination.last_page){
+                    to = this.pagination.last_page;
+                }
+
+                let pagesArray = [];
+                while (from <= to){
+                    pagesArray.push(from);
+                    from++;
+                }
+                return pagesArray;
+            },
+
+
         },
 
         mounted () {
@@ -108,13 +150,17 @@
         },
 
         methods: {
-            listarCategoria () {
-                Vue.http.post('/categorias/ajax_listar_categoria').then((response) => {
-                    this.categorias = response.body.data;
-                }).catch((error) => {
+            listarCategoria (page = 1) {
+                axios.post('/categorias/ajax_listar_categoria').then((response) => {
+                    this.categorias = response.data.categorias.data;
+                    this.pagination = response.data.pagination;
                 });
             },
-
+            cambiarPagina(page){
+                let me = this;
+                me.pagination.current_page = page;
+                me.listarCategoria(page)
+            },
             ModalCategoria(categoria = null) {
                 this.$refs.modalcategoria.show(categoria);
             },

@@ -52,21 +52,23 @@ class CategoriasController extends Controller
         return response()->json($response, $response['code']);
     }
 
-    public function ajax_listar_categoria(Request $request)
+    public function ajax_listar_categoria()
     {
-        if (!$request->ajax()) return redirect('/');
+//        if (!$request->ajax()) return redirect('/');
 
-        $error = '';
-        try {
-            $categorias = Categoria::all();
-        } catch (\Exception $e) {
-            $error .= $e->getMessage();
-        }
-        $response = [
-            'code' => strlen($error) ? 401 : 201,
-            'data' => strlen($error) ? collect([]) : $categorias,
+        $categorias = Categoria::paginate(2);
+        $data = [
+            'pagination' => [
+                'total'         => $categorias->total(8),
+                'current_page'  => $categorias->currentPage(),
+                'per_page'      => $categorias->perPage(),
+                'last_page'     => $categorias->lastPage(),
+                'from'          => $categorias->firstItem(),
+                'to'            => $categorias->lastItem(),
+            ],
+            'categorias' => $categorias,
         ];
-        return response()->json($response, $response['code']);
+        return response()->json($data, 201);
     }
 
 }

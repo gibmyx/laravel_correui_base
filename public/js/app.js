@@ -2977,8 +2977,48 @@ __webpack_require__.r(__webpack_exports__);
     return {
       nombre: '',
       descripcion: '',
-      categorias: []
+      categorias: [],
+      pagination: {
+        'total': 0,
+        'current_page': 0,
+        'per_page': 0,
+        'last_page': 0,
+        'from': 0,
+        'to': 0
+      },
+      offset: 3
     };
+  },
+  computed: {
+    isActived: function isActived() {
+      return this.pagination.current_page;
+    },
+    pagesNumber: function pagesNumber() {
+      if (!this.pagination.to) {
+        return [];
+      }
+
+      var from = this.pagination.current_page - this.offset;
+
+      if (from < 1) {
+        from = 1;
+      }
+
+      var to = from + this.offset * 2;
+
+      if (to >= this.pagination.last_page) {
+        to = this.pagination.last_page;
+      }
+
+      var pagesArray = [];
+
+      while (from <= to) {
+        pagesArray.push(from);
+        from++;
+      }
+
+      return pagesArray;
+    }
   },
   mounted: function mounted() {
     this.listarCategoria();
@@ -2987,9 +3027,16 @@ __webpack_require__.r(__webpack_exports__);
     listarCategoria: function listarCategoria() {
       var _this = this;
 
-      Vue.http.post('/categorias/ajax_listar_categoria').then(function (response) {
-        _this.categorias = response.body.data;
-      })["catch"](function (error) {});
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      axios.post('/categorias/ajax_listar_categoria').then(function (response) {
+        _this.categorias = response.data.categorias.data;
+        _this.pagination = response.data.pagination;
+      });
+    },
+    cambiarPagina: function cambiarPagina(page) {
+      var me = this;
+      me.pagination.current_page = page;
+      me.listarCategoria(page);
     },
     ModalCategoria: function ModalCategoria() {
       var categoria = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
@@ -3665,6 +3712,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Herramientas",
   methods: {
@@ -3703,7 +3760,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append("condicion", 1); //PARA PETICION NORMAR VER ARCHIVO: ROUTER => WEB
 
       Vue.http.post('/categorias/ajax_guardar', formData).then(function (response) {
-        var mensaje = response.data.mensaje;
+        var mensaje = response.data.message;
 
         _this.$toast.error({
           title: 'Probando Toast',
@@ -3717,6 +3774,19 @@ __webpack_require__.r(__webpack_exports__);
       //         message: mensaje,
       //     });
       // });
+    },
+    peticionGet: function peticionGet() {
+      var _this2 = this;
+
+      //PARA PETICION NORMAR VER ARCHIVO: ROUTER => WEB
+      Vue.http.get('/herramientas/prueba_peticion_get').then(function (response) {
+        var mensaje = response.data.mensaje;
+
+        _this2.$toast.error({
+          title: 'Probando Toast',
+          message: mensaje ? 'si' : 'no'
+        });
+      });
     }
   }
 });
@@ -24228,7 +24298,7 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "form-group row" }, [
             _c("div", { staticClass: "col-md-6" }, [
-              _c("label", [_vm._v("Peticion Ajax")]),
+              _c("label", [_vm._v("Peticion Ajax Post")]),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-6" }, [
                 _c(
@@ -24238,6 +24308,31 @@ var render = function() {
                       click: function($event) {
                         $event.preventDefault()
                         return _vm.enviarConsole($event)
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                                Peticon\n                            "
+                    )
+                  ]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row" }, [
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("label", [_vm._v("Peticion Ajax Get")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-6" }, [
+                _c(
+                  "button",
+                  {
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.peticionGet($event)
                       }
                     }
                   },
@@ -42053,14 +42148,13 @@ try {} catch (e) {}
 
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-var token = document.head.querySelector('meta[name="csrf-token"]');
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'; // let token = document.head.querySelector('meta[name="csrf-token"]');
+// if (token) {
+//     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+// } else {
+//     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+// }
 
-if (token) {
-  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-} else {
-  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
-}
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
