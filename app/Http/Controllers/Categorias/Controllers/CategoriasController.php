@@ -13,6 +13,8 @@ class CategoriasController extends Controller
 
     public function ajax_guardar(Request $request)
     {
+        if (!$request->ajax()) return redirect('/');
+
         $error = '';
 
         try {
@@ -29,6 +31,7 @@ class CategoriasController extends Controller
 
     public function ajax_update_state(Request $request)
     {
+        if (!$request->ajax()) return redirect('/');
 
         $value = $request->capture()->all();
 
@@ -49,8 +52,10 @@ class CategoriasController extends Controller
         return response()->json($response, $response['code']);
     }
 
-    public function ajax_listar_categoria()
+    public function ajax_listar_categoria(Request $request)
     {
+        if (!$request->ajax()) return redirect('/');
+
         $error = '';
         try {
             $categorias = Categoria::all();

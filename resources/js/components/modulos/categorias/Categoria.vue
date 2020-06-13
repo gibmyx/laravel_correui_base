@@ -4,8 +4,11 @@
             <button type="button" class="btn btn-warning btn-sm" @click.prevent="EditarCategoria">
                 <i class="icon-pencil"></i>
             </button>
-            <button type="button" class="btn btn-sm" :class="condicion ? 'btn-danger' : 'btn-info'" @click.prevent="DesactivarCategoria">
-                <i :class="condicion ? 'icon-trash' : 'icon-check'"></i>
+            <button v-if="o.condicion"  type="button" class="btn btn-danger btn-sm" @click.prevent="DesactivarCategoria">
+                <i class="icon-trash"></i>
+            </button>
+            <button v-else type="button" class="btn btn-info btn-sm" @click.prevent="DesactivarCategoria">
+                <i class="icon-check"></i>
             </button>
         </td>
         <td v-html="o.nombre"></td>
@@ -52,6 +55,21 @@
                 this.$emit('EliminarCategoria', this.o);
             }
         },
+        watch: {
+            id(val){
+                this.o['id'] = val;
+            },
+            nombre(val){
+                this.o['nombre'] = val;
+            },
+            descripcion(val){
+                this.o['descripcion'] = val;
+            },
+            condicion(val){
+                val ? console.log('hola   ' , val) : console.log('chaooo   ' , val)
+                this.o['condicion'] = val;
+            },
+        }
     }
 </script>
 

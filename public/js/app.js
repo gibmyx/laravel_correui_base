@@ -2814,6 +2814,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     o: Object
@@ -2843,6 +2846,21 @@ __webpack_require__.r(__webpack_exports__);
     },
     DesactivarCategoria: function DesactivarCategoria() {
       this.$emit('EliminarCategoria', this.o);
+    }
+  },
+  watch: {
+    id: function id(val) {
+      this.o['id'] = val;
+    },
+    nombre: function nombre(val) {
+      this.o['nombre'] = val;
+    },
+    descripcion: function descripcion(val) {
+      this.o['descripcion'] = val;
+    },
+    condicion: function condicion(val) {
+      val ? console.log('hola   ', val) : console.log('chaooo   ', val);
+      this.o['condicion'] = val;
     }
   }
 });
@@ -22810,21 +22828,35 @@ var render = function() {
         [_c("i", { staticClass: "icon-pencil" })]
       ),
       _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-sm",
-          class: _vm.condicion ? "btn-danger" : "btn-info",
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              $event.preventDefault()
-              return _vm.DesactivarCategoria($event)
-            }
-          }
-        },
-        [_c("i", { class: _vm.condicion ? "icon-trash" : "icon-check" })]
-      )
+      _vm.o.condicion
+        ? _c(
+            "button",
+            {
+              staticClass: "btn btn-danger btn-sm",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.DesactivarCategoria($event)
+                }
+              }
+            },
+            [_c("i", { staticClass: "icon-trash" })]
+          )
+        : _c(
+            "button",
+            {
+              staticClass: "btn btn-info btn-sm",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.DesactivarCategoria($event)
+                }
+              }
+            },
+            [_c("i", { staticClass: "icon-check" })]
+          )
     ]),
     _vm._v(" "),
     _c("td", { domProps: { innerHTML: _vm._s(_vm.o.nombre) } }),
