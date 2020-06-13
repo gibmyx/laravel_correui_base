@@ -29,10 +29,13 @@ class CategoriasController extends Controller
 
     public function ajax_update_state(Request $request)
     {
+
+        $value = $request->capture()->all();
+
         $error = '';
         $params = [
-          'id' => $request->id,
-          'condicion' => $request->condicion,
+          'id' => $value['id'],
+          'condicion' => $value['condicion'],
         ];
         try {
             (new GuardarCategoria())->save($params);
@@ -40,7 +43,7 @@ class CategoriasController extends Controller
             $error .= $e->getMessage();
         }
         $response = [
-            'message' => strlen($error) ? $error : '<b>Éxito!</b><br> Se han guardado sus cambios.',
+            'message' => strlen($error) ? $error : 'Se han guardado sus cambios.',
             'code' => strlen($error) ? 401 : 201,
         ];
         return response()->json($response, $response['code']);

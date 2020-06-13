@@ -7,6 +7,6 @@ Route::post('/categorias/ajax_guardar', [
 Route::post('/categorias/ajax_listar_categoria', [
     'uses' => 'Categorias\Controllers\CategoriasController@ajax_listar_categoria'
 ]);
-Route::put('/categorias/ajax_update_state', [
+Route::post('/categorias/ajax_update_state', [
     'uses' => 'Categorias\Controllers\CategoriasController@ajax_update_state'
 ]);

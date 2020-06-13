@@ -3,10 +3,9 @@
         <td>
             <button type="button" class="btn btn-warning btn-sm" @click.prevent="EditarCategoria">
                 <i class="icon-pencil"></i>
-            </button> &nbsp;
-            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                    data-target="#modalEliminar">
-                <i class="icon-trash"></i>
+            </button>
+            <button type="button" class="btn btn-sm" :class="condicion ? 'btn-danger' : 'btn-info'" @click.prevent="DesactivarCategoria">
+                <i :class="condicion ? 'icon-trash' : 'icon-check'"></i>
             </button>
         </td>
         <td v-html="o.nombre"></td>
@@ -48,6 +47,10 @@
             EditarCategoria() {
                 this.$emit('editarCategoria', this.o);
             },
+            DesactivarCategoria() {
+
+                this.$emit('EliminarCategoria', this.o);
+            }
         },
     }
 </script>

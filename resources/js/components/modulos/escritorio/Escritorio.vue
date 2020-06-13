@@ -47,25 +47,7 @@
                                         data-target="#modalNuevo">
                                     <i class="icon-pencil"></i>
                                 </button> &nbsp;
-                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                        data-target="#modalEliminar">
-                                    <i class="icon-trash"></i>
-                                </button>
-                            </td>
-                            <td>Equipos</td>
-                            <td>Dispositivos electrónicos</td>
-                            <td>
-                                <span class="badge badge-success">Activo</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
-                                        data-target="#modalNuevo">
-                                    <i class="icon-pencil"></i>
-                                </button> &nbsp;
-                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                        data-target="#modalEliminar">
+                                <button type="button" class="btn btn-danger btn-sm"  @click.prevent="ModalDeshabilitar">
                                     <i class="icon-trash"></i>
                                 </button>
                             </td>
@@ -158,36 +140,15 @@
         <!--Modal de agregar categoria-->
         <agregar-categoria :name="'AgregarCategoria'"
                            ref="agregarcategoria"></agregar-categoria>
+        <modal-deshabilitar :name="'ModalDeshabilitar'"
+        ref="modaldeshabilitar"></modal-deshabilitar>
 
-        <!-- Inicio del modal Eliminar -->
-        <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-             style="display: none;" aria-hidden="true">
-            <div class="modal-dialog modal-danger" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Eliminar Categoría</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Estas seguro de eliminar la categoría?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-danger">Eliminar</button>
-                    </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-        </div>
-        <!-- Fin del modal Eliminar -->
     </main>
 </template>
 
 <script>
     import AgregarCategoria from "./modal/AgregarCategoria";
+    import ModalDeshabilitar from "./modal/ModalDeshabilitar";
 
     export default {
         mounted() {
@@ -195,10 +156,14 @@
         },
         components: {
             AgregarCategoria,
+            ModalDeshabilitar,
         },
         methods: {
             AgregarCategoria() {
                 this.$refs.agregarcategoria.show();
+            },
+            ModalDeshabilitar() {
+                this.$refs.modaldeshabilitar.show();
             },
 
         },

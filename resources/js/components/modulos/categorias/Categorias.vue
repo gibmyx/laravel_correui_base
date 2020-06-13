@@ -45,6 +45,7 @@
                                 v-for="o in categorias"
                                 :o="o"
                                 v-on:editarCategoria="ModalCategoria($event)"
+                                v-on:EliminarCategoria="ModalDeshabilitar($event)"
                                 :key="o.id">
                             </tr>
                         </tbody>
@@ -80,12 +81,16 @@
         <!--Modal de agregar categoria-->
         <modal-categoria :name="'ModalCategoria'" v-on:listarCategoria="listarCategoria"
                            ref="modalcategoria"></modal-categoria>
+        <!--Modal de eliminar categoria-->
+        <modal-estado :name="'ModalEstado'" v-on:listarCategoria="listarCategoria"
+                            ref="modalestado"></modal-estado>
     </main>
 </template>
 
 <script>
     import Categoria from "./Categoria";
     import ModalCategoria from "./modal/ModalCategoria";
+    import ModalEstado from "./modal/ModalEstado";
 
     export default {
         name: "Categorias",
@@ -113,11 +118,15 @@
             ModalCategoria(categoria = null) {
                 this.$refs.modalcategoria.show(categoria);
             },
+            ModalDeshabilitar(categoria = null) {
+                this.$refs.modalestado.show(categoria);
+            },
         },
 
         components: {
             Categoria,
             ModalCategoria,
+            ModalEstado,
         },
     }
 </script>
