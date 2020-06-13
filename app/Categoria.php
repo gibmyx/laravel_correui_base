@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Http\Controllers\Categorias\Services\CategoriaQueryFilters;
 use Illuminate\Database\Eloquent\Model;
 
 class Categoria extends Model
@@ -12,4 +13,10 @@ class Categoria extends Model
         'descripcion',
         'condicion',
     ];
+
+    public function scopeDeFiltro($query, $campo)
+    {
+        $queryFilter = new CategoriaQueryFilters();
+        return $queryFilter->apply($query, $campo);
+    }
 }

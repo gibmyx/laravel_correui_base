@@ -19,13 +19,13 @@
                     <div class="form-group row">
                         <div class="col-md-6">
                             <div class="input-group">
-                                <select class="form-control col-md-3" id="opcion" name="opcion">
+                                <select class="form-control col-md-3" id="opcion" name="opcion" v-model="opcion">
                                     <option value="nombre">Nombre</option>
                                     <option value="descripcion">Descripción</option>
                                 </select>
-                                <input type="text" id="texto" name="texto" class="form-control"
+                                <input type="text" id="texto" name="texto" class="form-control" v-model="texto"
                                        placeholder="Texto a buscar">
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Buscar
+                                <button type="submit" class="btn btn-primary" @click.prevent="listarCategoria"><i class="fa fa-search"></i> Buscar
                                 </button>
                             </div>
                         </div>
@@ -33,10 +33,10 @@
                     <table class="table table-bordered table-striped table-sm">
                         <thead>
                             <tr>
-                                <th>Opciones</th>
-                                <th>Nombre</th>
-                                <th>Descripción</th>
-                                <th>Estado</th>
+                                <th width="20%">Opciones</th>
+                                <th width="20%">Nombre</th>
+                                <th width="20%">Descripción</th>
+                                <th width="20%">Estado</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -50,25 +50,16 @@
                             </tr>
                         </tbody>
                     </table>
-                    <nav>
+                    <nav class="d-flex justify-content-center">
                         <ul class="pagination">
                             <li class="page-item">
-                                <a class="page-link" href="#">Ant</a>
+                                <a class="page-link" href="#" v-if="pagination.current_page > 1" @click.prevent="cambiarPagina(pagination.current_page - 1 )">Ant</a>
                             </li>
-                            <li class="page-item active">
-                                <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">2</a>
+                            <li class="page-item" v-for="page in pagesNumber" :key="page" :class="page == isActived ? 'active' : ''">
+                                <a class="page-link" href="#" @click.prevent="cambiarPagina(page)" v-text="page"></a>
                             </li>
                             <li class="page-item">
-                                <a class="page-link" href="#">3</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">4</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Sig</a>
+                                <a class="page-link" href="#" v-if="pagination.current_page < pagination.last_page" @click.prevent="cambiarPagina(pagination.current_page + 1 )">Sig</a>
                             </li>
                         </ul>
                     </nav>
@@ -91,6 +82,7 @@
     import Categoria from "./Categoria";
     import ModalCategoria from "./modal/ModalCategoria";
     import ModalEstado from "./modal/ModalEstado";
+    import qs from 'qs';
 
     export default {
         name: "Categorias",
@@ -99,6 +91,8 @@
             return {
                 nombre: '',
                 descripcion: '',
+                opcion: 'nombre',
+                texto: '',
                 categorias: [],
 
                 pagination: {
@@ -109,7 +103,7 @@
                     'from': 0,
                     'to': 0,
                 },
-                offset: 3
+                offset: 1
             }
         },
 
@@ -151,7 +145,8 @@
 
         methods: {
             listarCategoria (page = 1) {
-                axios.post('/categorias/ajax_listar_categoria').then((response) => {
+                let opcion = this.opcion;
+                axios.post('/categorias/ajax_listar_categoria?page=' + page + '&' + this.opcion + '=' + this.texto).then((response) => {
                     this.categorias = response.data.categorias.data;
                     this.pagination = response.data.pagination;
                 });

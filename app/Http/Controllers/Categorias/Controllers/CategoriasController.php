@@ -52,11 +52,12 @@ class CategoriasController extends Controller
         return response()->json($response, $response['code']);
     }
 
-    public function ajax_listar_categoria()
+    public function ajax_listar_categoria(Request $request)
     {
-//        if (!$request->ajax()) return redirect('/');
+        if (!$request->ajax()) return redirect('/');
 
-        $categorias = Categoria::paginate(2);
+        $value = array_filter($request->capture()->all());
+        $categorias = Categoria::DeFiltro($value)->paginate(2);
         $data = [
             'pagination' => [
                 'total'         => $categorias->total(8),
