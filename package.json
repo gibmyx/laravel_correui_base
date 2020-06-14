@@ -29,6 +29,7 @@
         "sweetalert2": "^9.14.4",
         "vue-numeric": "^2.3.0",
         "vue-resource": "^1.5.1",
-        "vue-wysiwyg": "^1.7.2"
+        "vue-wysiwyg": "^1.7.2",
+        "vuelidate": "^0.7.5"
     }
 }

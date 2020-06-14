@@ -11,11 +11,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                    <form id="myform" action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                             <div class="col-md-9">
-                                <input type="text" id="nombre" name="nombre" class="form-control" v-model="nombre"
+                                <input type="text" required="" id="nombre" :name="'nombre'" class="form-control" v-model="nombre"
                                        placeholder="Nombre de categoría">
                                 <span class="help-block">(*) Ingrese el nombre de la categoría</span>
                             </div>
@@ -23,7 +23,8 @@
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="email-input">Descripción</label>
                             <div class="col-md-9">
-                                <input type="email" id="descripcion" name="descripcion" class="form-control" v-model="descripcion"
+                                <input type="email" id="descripcion" name="descripcion" class="form-control"
+                                       v-model="descripcion"
                                        placeholder="Enter Email">
                             </div>
                         </div>
@@ -49,7 +50,7 @@
 
         name: "ModalCategoria",
 
-        data () {
+        data() {
             return {
                 id: '',
                 nombre: '',
@@ -63,7 +64,7 @@
                 let modal = $('#' + this.name + 'Modal');
                 modal.modal('hide');
             },
-            show(categoria  = null) {
+            show(categoria = null) {
                 this.asignarDatos(categoria);
                 let modal = $('#' + this.name + 'Modal');
                 modal.modal('show');
@@ -97,12 +98,12 @@
 
             },
             asignarDatos(categoria) {
-                if(categoria == null){
+                if (categoria == null) {
                     this.id = '';
                     this.nombre = '';
                     this.descripcion = '';
                     this.condicion = '';
-                }else{
+                } else {
                     this.id = categoria.id;
                     this.nombre = categoria.nombre;
                     this.descripcion = categoria.descripcion;
@@ -110,14 +111,22 @@
                 }
             }
         },
+
+        validations: {
+            form: {
+                name: { required },
+                email: { required, email }
+            }
+        },
+
         watch: {
-            id(val){
+            id(val) {
             },
-            nombre(val){
+            nombre(val) {
             },
-            descripcion(val){
+            descripcion(val) {
             },
-            condicion(val){
+            condicion(val) {
             },
         }
     }

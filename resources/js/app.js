@@ -5,6 +5,7 @@ import wysiwyg from "vue-wysiwyg";
 import VueNumeric from 'vue-numeric';
 import CxltToastr from 'cxlt-vue2-toastr'
 import VueResource from 'vue-resource';
+import Vuelidate from 'vuelidate';
 
 window.Vue = require('vue');
 window.tkn = document.head.querySelector('meta[name="csrf-token"]').content;
@@ -39,7 +40,7 @@ Vue.use(wysiwyg, {});
 Vue.use(VueNumeric);
 Vue.use(CxltToastr, toastrConfigs);
 Vue.use(VueResource);
-
+Vue.use(Vuelidate);
 
 
 Vue.component('sidebar', require('./components/sidebar.vue').default);

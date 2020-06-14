@@ -43,8 +43,16 @@
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="text-input">Precio de venta</label>
                             <div class="col-md-9">
-                                <input type="text" id="precio_venta" name="precio_venta" class="form-control" v-model="detalle.precio_venta"
-                                       placeholder="Precio de venta">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                    <vue-numeric
+                                        class="form-control"
+                                        currency=""
+                                        separator=","
+                                        v-model="detalle.precio_venta"
+                                        :precision="2"
+                                    ></vue-numeric>
+                                </div>
                             </div>
                         </div>
 
@@ -52,7 +60,7 @@
                             <label class="col-md-3 form-control-label" for="email-input">Descripción</label>
                             <div class="col-md-9">
                                 <input type="email" id="descripcion" name="descripcion" class="form-control" v-model="detalle.descripcion"
-                                       placeholder="Enter Email">
+                                       placeholder="Descripcion">
                             </div>
                         </div>
 
@@ -66,7 +74,9 @@
 
                     </form>
                 </div>
+                <div>
 
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     <button type="button" class="btn btn-primary" @click.prevent="GuardarCategoria" v-text="detalle.id == '' ? 'Guardar' : 'Actualizar'"></button>
@@ -92,7 +102,7 @@
                     id: '',
                     nombre: '',
                     codigo: '',
-                    precio_venta: '',
+                    precio_venta: 0,
                     categoria_id: '',
                     descripcion: '',
                     condicion: '',
