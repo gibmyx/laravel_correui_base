@@ -5,21 +5,47 @@
         <div class="modal-dialog modal-primary modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 v-text="id == '' ? 'Agregar categoría' : 'Actualizar categoría'" class="modal-title"></h4>
+                    <h4 v-text="id == '' ? 'Agregar artículo' : 'Actualizar artículo'" class="modal-title"></h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                             <div class="col-md-9">
                                 <input type="text" id="nombre" name="nombre" class="form-control" v-model="nombre"
-                                       placeholder="Nombre de categoría">
-                                <span class="help-block">(*) Ingrese el nombre de la categoría</span>
+                                       placeholder="Nombre del articulo">
+                                <span class="help-block">(*) Ingrese el nombre de la artículo</span>
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="text-input">Codigo</label>
+                            <div class="col-md-9">
+                                <input type="text" id="codigo" name="codigo" class="form-control" v-model="codigo"
+                                       placeholder="codigo del articulo">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="text-input">Categoria</label>
+                            <div class="col-md-9">
+                                <input type="text" id="categoria" name="categoria" class="form-control" v-model="categoria_id"
+                                       placeholder="Categoria">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="text-input">Precio de venta</label>
+                            <div class="col-md-9">
+                                <input type="text" id="precio_venta" name="precio_venta" class="form-control" v-model="precio_venta"
+                                       placeholder="Precio de venta">
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="email-input">Descripción</label>
                             <div class="col-md-9">
@@ -27,6 +53,15 @@
                                        placeholder="Enter Email">
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="email-input">Stock</label>
+                            <div class="col-md-9">
+                                <input type="email" id="stock" name="stock" class="form-control" v-model="stock"
+                                       placeholder="Stock">
+                            </div>
+                        </div>
+
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -42,19 +77,31 @@
 </template>
 
 <script>
-    import params from "./params";
 
     export default {
         props: ['name'],
 
-        name: "ModalCategoria",
+        name: "ModalArticulo",
 
         data () {
             return {
                 id: '',
                 nombre: '',
+                codigo: '',
+                precio_venta: '',
+                categoria_id: '',
                 descripcion: '',
                 condicion: '',
+                stock: '',
+
+
+                select2categoria: {
+                    ajax: {
+                        url() {
+                            return 'http://127.0.0.1:8000/proveedores/ajax_get_proveedores';
+                        }
+                    }
+                },
             }
         },
 
@@ -73,19 +120,22 @@
                 let formData = new FormData();
                 formData.append("id", this.id);
                 formData.append("nombre", this.nombre);
+                formData.append("codigo", this.codigo);
+                formData.append("precio_venta", this.precio_venta);
                 formData.append("descripcion", this.descripcion);
+                formData.append("categoria_id", this.categoria_id);
+                formData.append("stock", this.stock);
                 formData.append("condicion", this.condicion);
 
                 //PARA PETICION NORMAR VER ARCHIVO: ROUTER => WEB
-                Vue.http.post('/categorias/ajax_guardar', formData).then((response) => {
+                Vue.http.post('/articulos/ajax_guardar', formData).then((response) => {
                     let mensaje = response.data.message;
                     this.$toast.success({
                         title: 'Éxito',
                         message: mensaje,
                     });
-                    this.$emit('listarCategoria');
+                    this.$emit('listarArticulo');
                 }).catch((error) => {
-                    console.log(error);
                     let mensaje = error.body.message;
                     this.$toast.error({
                         title: 'Error',
@@ -100,12 +150,20 @@
                 if(categoria == null){
                     this.id = '';
                     this.nombre = '';
+                    this.codigo = '';
+                    this.precio_venta = '';
+                    this.categoria_id = '';
                     this.descripcion = '';
+                    this.stock = '';
                     this.condicion = '';
                 }else{
                     this.id = categoria.id;
                     this.nombre = categoria.nombre;
+                    this.codigo = categoria.codigo;
+                    this.categoria_id = categoria.categoria_id;
+                    this.precio_venta = categoria.precio_venta;
                     this.descripcion = categoria.descripcion;
+                    this.stock = categoria.stock;
                     this.condicion = categoria.condicion;
                 }
             }
@@ -115,7 +173,15 @@
             },
             nombre(val){
             },
+            codigo(val){
+            },
+            precio_venta(val){
+            },
+            categoria_id(val){
+            },
             descripcion(val){
+            },
+            stock(val){
             },
             condicion(val){
             },

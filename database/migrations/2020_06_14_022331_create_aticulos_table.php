@@ -13,7 +13,7 @@ class CreateAticulosTable extends Migration
      */
     public function up()
     {
-        Schema::create('aticulos', function (Blueprint $table) {
+        Schema::create('articulos', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->integer('categoria_id')->unsigned();

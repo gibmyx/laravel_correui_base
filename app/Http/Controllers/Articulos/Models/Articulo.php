@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Articulo extends Model
 {
-    protected $table = 'aticulos';
+    protected $table = 'articulos';
     protected $fillable = [
         'categoria_id',
         'codigo',
@@ -16,11 +16,12 @@ class Articulo extends Model
         'precio_venta',
         'stock',
         'descripcion',
-        'codicion',
+        'condicion',
     ];
 //    protected $casts = [
 //        'fecha_limite' => 'datetime'
 //    ];
+
     public function categoria()
     {
         return $this->belongsTo(Categoria::class, 'categoria_id');

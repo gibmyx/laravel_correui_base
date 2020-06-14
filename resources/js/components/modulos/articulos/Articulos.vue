@@ -24,9 +24,9 @@
                                     <option value="descripcion">Descripción</option>
                                 </select>
                                 <input type="text" id="texto" name="texto" class="form-control" v-model="texto"
-                                       @keyup.enter="listarArticulo"
+                                       @keyup.enter="listarArticulo(1)"
                                        placeholder="Texto a buscar">
-                                <button type="submit" class="btn btn-primary" @click.prevent="listarArticulo"><i
+                                <button class="btn btn-primary" @click.prevent="listarArticulo(1)"><i
                                     class="fa fa-search"></i> Buscar
                                 </button>
                             </div>
@@ -35,14 +35,14 @@
                     <table class="table table-bordered table-striped table-sm">
                         <thead>
                         <tr>
-                            <th width="20%">Opciones</th>
-                            <th>Codifo</th>
-                            <th>Nombre</th>
-                            <th>Descripcion</th>
-                            <th>Categoria</th>
-                            <th>Precio de venta</th>
-                            <th>Stock</th>
-                            <th>Estado</th>
+                            <th width="10%">Opciones</th>
+                            <th width="10%">Codigo</th>
+                            <th width="10%">Nombre</th>
+                            <th width="15%">Descripcion</th>
+                            <th width="10%">Categoria</th>
+                            <th width="15%">Precio de venta</th>
+                            <th width="10%">Stock</th>
+                            <th width="10%">Estado</th>
                         </tr>
                         </thead>
                         <tbody v-if="articulos.length >= 1">
@@ -85,8 +85,6 @@
             </div>
             <!-- Fin ejemplo de tabla Listado -->
         </div>
-
-        <pre>{{articulos}}</pre>
 
         <!--Modal de agregar categoria-->
         <modal-articulo :name="'ModalArticulo'" v-on:listarArticulo="listarArticulo(pagination.current_page)"
@@ -162,7 +160,7 @@
             listarArticulo(page = 1) {
                 let opcion = this.opcion;
                 axios.get('/articulos/ajax_listar_articulos?page=' + page + '&' + this.opcion + '=' + this.texto).then((response) => {
-                    this.articulos = response.data.articulos.data;
+                    this.articulos = response.data.articulos;
                     this.pagination = response.data.pagination;
                 });
             },

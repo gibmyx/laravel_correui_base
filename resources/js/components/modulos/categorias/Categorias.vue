@@ -23,9 +23,9 @@
                                     <option value="nombre">Nombre</option>
                                     <option value="descripcion">Descripción</option>
                                 </select>
-                                <input type="text" id="texto" name="texto" class="form-control" v-model="texto" @keyup.enter="listarCategoria"
+                                <input type="text" id="texto" name="texto" class="form-control" v-model="texto" @keyup.enter="listarCategoria(1)"
                                        placeholder="Texto a buscar">
-                                <button type="submit" class="btn btn-primary" @click.prevent="listarCategoria"><i class="fa fa-search"></i> Buscar
+                                <button type="submit" class="btn btn-primary" @click.prevent="listarCategoria(1)"><i class="fa fa-search"></i> Buscar
                                 </button>
                             </div>
                         </div>

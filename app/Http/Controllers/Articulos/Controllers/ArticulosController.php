@@ -67,7 +67,9 @@ class ArticulosController extends Controller
                 'from'          => $Articulos->firstItem(),
                 'to'            => $Articulos->lastItem(),
             ],
-            'articulos' => $Articulos,
+            'articulos' => $Articulos->map(function (Articulo $Articulo){
+                return collect(array_merge($Articulo->toArray(), ['categoria' =>  !isEmpty($Articulo->categoria) ? $Articulo->categoria->nombre : '']));
+            }),
         ];
         return response()->json($data, 201);
     }

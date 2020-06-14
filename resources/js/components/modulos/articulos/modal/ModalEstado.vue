@@ -5,15 +5,15 @@
         <div class="modal-dialog" :class="condicion ? 'modal-danger' : 'modal-info' " role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 v-if="condicion" class="modal-title">Eliminar Categoría</h4>
+                    <h4 v-if="condicion" class="modal-title">Eliminar artículo</h4>
                     <h4 v-else class="modal-title">activar Categoría</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p v-if="condicion">Estas seguro de eliminar la categoría?</p>
-                    <p v-else>Estas seguro de activar la categoría?</p>
+                    <p v-if="condicion">Estas seguro de eliminar el artículo?</p>
+                    <p v-else>Estas seguro de activar el artículo?</p>
                     <p>Nombre: <strong>{{nombre}}</strong></p>
                 </div>
                 <div class="modal-footer">
@@ -60,13 +60,13 @@
                 formData.append("id", this.id);
                 formData.append("condicion", condicion);
 
-                axios.post('/categorias/ajax_update_state', formData).then((response) => {
+                axios.post('/articulos/ajax_update_state', formData).then((response) => {
                     let mensaje = response.data.message;
                     this.$toast.success({
                         title: 'Éxito',
                         message: mensaje,
                     });
-                    this.$emit('listarCategoria');
+                    this.$emit('listarArticulo');
                 }).catch((error) => {
                     console.log(error);
                     let mensaje = error.data.message;
