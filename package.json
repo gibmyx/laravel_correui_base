@@ -27,6 +27,7 @@
     "dependencies": {
         "cxlt-vue2-toastr": "^1.1.1",
         "sweetalert2": "^9.14.4",
+        "vue-barcode": "^1.2.0",
         "vue-numeric": "^2.3.0",
         "vue-resource": "^1.5.1",
         "vue-wysiwyg": "^1.7.2",

@@ -26,11 +26,16 @@
 
                     <div class="form-group row">
                         <label class="col-md-3 form-control-label" for="text-input">Codigo <span style="color: red">*</span></label>
-                        <div class="col-md-9">
+                        <div class="col-md-auto">
                             <input type="text" id="codigo" name="codigo" class="form-control"
                                    v-model.trim="$v.detalle.codigo.$model" :class="{ 'is-invalid': submitStatus && $v.detalle.codigo.$error }"
                                    placeholder="codigo del articulo">
                             <div class="invalid-feedback" v-if="!$v.detalle.codigo.required && submitStatus">El codigo es requerido</div>
+                        </div>
+                        <div class="col-md-auto">
+                            <barcode :value="detalle.codigo" :options="{format: 'EAN-13'}">
+                                Generando código de barras
+                            </barcode>
                         </div>
                     </div>
 
@@ -87,7 +92,6 @@
                     <button type="submit" class="btn btn-primary" v-text="detalle.id == '' ? 'Guardar' : 'Actualizar'"></button>
                 </div>
                 </form>
-                <pre>{{detalle}}</pre>
             </div>
             <!-- /.modal-content -->
         </div>
@@ -99,6 +103,7 @@
 <script>
 
     import {required, between} from "vuelidate/lib/validators";
+    import VueBarcode from 'vue-barcode';
 
     export default {
         props: ['name'],
@@ -212,7 +217,9 @@
                 this.detalle.condicion = _.isNull(articulo) ? '' : articulo.condicion;
             }
         },
-        watch: {}
+        components: {
+            'barcode': VueBarcode
+        }
     }
 </script>
 
