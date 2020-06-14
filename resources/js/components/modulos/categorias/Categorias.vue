@@ -33,10 +33,10 @@
                     <table class="table table-bordered table-striped table-sm">
                         <thead>
                             <tr>
-                                <th width="20%">Opciones</th>
-                                <th width="20%">Nombre</th>
-                                <th width="20%">Descripción</th>
-                                <th width="20%">Estado</th>
+                                <th width="10%" class="text-center">Opciones</th>
+                                <th width="20%" class="text-center">Nombre</th>
+                                <th width="30%" class="text-center">Descripción</th>
+                                <th width="20%" class="text-center">Estado</th>
                             </tr>
                         </thead>
                         <tbody v-if="categorias.length > 1">

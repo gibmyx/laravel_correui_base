@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Articulos\Models;
+namespace App\Modulos\Articulos\Models;
 
-use App\Http\Controllers\Articulos\Services\ArticulosQueryFilters;
-use App\Http\Controllers\Categorias\Models\Categoria;
+use App\Modulos\Articulos\Services\ArticulosQueryFilters;
+use App\Modulos\Categorias\Models\Categoria;
 use Illuminate\Database\Eloquent\Model;
 
 class Articulo extends Model

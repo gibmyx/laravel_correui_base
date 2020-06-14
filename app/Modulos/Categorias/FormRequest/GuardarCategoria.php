@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Categorias\FormRequest;
+namespace App\Modulos\Categorias\FormRequest;
 
-use App\Http\Controllers\Categorias\Models\Categoria;
+use App\Modulos\Categorias\Models\Categoria;
 use App\Http\Services\Guardar;
 use Illuminate\Support\Facades\DB;
 //use Illuminate\Database\Capsule\Manager as DB;

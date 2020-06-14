@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Categorias\Controllers;
 
-use App\Http\Controllers\Categorias\FormRequest\GuardarCategoria;
-use App\Http\Controllers\Categorias\Models\Categoria;
+use App\Modulos\Categorias\FormRequest\GuardarCategoria;
+use App\Modulos\Categorias\Models\Categoria;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -57,7 +57,7 @@ class CategoriasController extends Controller
         if (!$request->ajax()) return redirect('/');
 
         $value = array_filter($request->capture()->all());
-        $categorias = Categoria::DeFiltro($value)->paginate(5);
+        $categorias = Categoria::DeFiltro($value)->orderBy('id', 'desc')->paginate(5);
         $data = [
             'pagination' => [
                 'total'         => $categorias->total(8),

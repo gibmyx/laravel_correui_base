@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Categorias\Services;
+namespace App\Modulos\Categorias\Services;
 
 use App\Providers\QueryFilters;
 

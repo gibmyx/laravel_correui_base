@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Articulos\FormRequest;
+namespace App\Modulos\Articulos\FormRequest;
 
-use App\Http\Controllers\Articulos\Models\Articulo;
+use App\Modulos\Articulos\Models\Articulo;
 use App\Http\Services\Guardar;
 use Illuminate\Support\Facades\DB;
 

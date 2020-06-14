@@ -24208,7 +24208,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("tr", [
-    _c("td", { attrs: { width: "10%" } }, [
+    _c("td", { staticClass: "text-center", attrs: { width: "10%" } }, [
       _c(
         "button",
         {
@@ -24285,7 +24285,7 @@ var render = function() {
       domProps: { innerHTML: _vm._s(_vm.o.stock) }
     }),
     _vm._v(" "),
-    _c("td", { attrs: { width: "10%" } }, [
+    _c("td", { staticClass: "text-center", attrs: { width: "10%" } }, [
       _vm.o.condicion
         ? _c("span", { staticClass: "badge badge-success" }, [_vm._v("Activo")])
         : _c("span", { staticClass: "badge badge-danger" }, [
@@ -25007,8 +25007,6 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("pre", [_vm._v(_vm._s(_vm.detalle))]),
-            _vm._v(" "),
             _c("div", { staticClass: "modal-footer" }, [
               _c(
                 "button",
@@ -25199,7 +25197,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("tr", [
-    _c("td", { attrs: { width: "20%" } }, [
+    _c("td", { staticClass: "text-center", attrs: { width: "10%" } }, [
       _c(
         "button",
         {
@@ -25252,11 +25250,11 @@ var render = function() {
     }),
     _vm._v(" "),
     _c("td", {
-      attrs: { width: "20%" },
+      attrs: { width: "30%" },
       domProps: { innerHTML: _vm._s(_vm.o.descripcion) }
     }),
     _vm._v(" "),
-    _c("td", { attrs: { width: "20%" } }, [
+    _c("td", { staticClass: "text-center", attrs: { width: "20%" } }, [
       _vm.o.condicion
         ? _c("span", { staticClass: "badge badge-success" }, [_vm._v("Activo")])
         : _c("span", { staticClass: "badge badge-danger" }, [
@@ -25576,13 +25574,21 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { attrs: { width: "20%" } }, [_vm._v("Opciones")]),
+        _c("th", { staticClass: "text-center", attrs: { width: "10%" } }, [
+          _vm._v("Opciones")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "20%" } }, [_vm._v("Nombre")]),
+        _c("th", { staticClass: "text-center", attrs: { width: "20%" } }, [
+          _vm._v("Nombre")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "20%" } }, [_vm._v("Descripción")]),
+        _c("th", { staticClass: "text-center", attrs: { width: "30%" } }, [
+          _vm._v("Descripción")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "20%" } }, [_vm._v("Estado")])
+        _c("th", { staticClass: "text-center", attrs: { width: "20%" } }, [
+          _vm._v("Estado")
+        ])
       ])
     ])
   },

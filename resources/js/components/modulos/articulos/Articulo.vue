@@ -1,6 +1,6 @@
 <template>
     <tr>
-        <td width="10%">
+        <td width="10%" class="text-center">
             <button type="button" class="btn btn-warning btn-sm" @click.prevent="EditarCategoria">
                 <i class="icon-pencil"></i>
             </button>
@@ -19,7 +19,7 @@
         <td width="15%" v-html="o.precio_venta"></td>
         <td width="10%" v-html="o.stock"></td>
 
-        <td width="10%">
+        <td width="10%" class="text-center">
             <span v-if="o.condicion" class="badge badge-success">Activo</span>
             <span v-else class="badge badge-danger">Inactivo</span>
         </td>

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Categorias\Models;
+namespace App\Modulos\Categorias\Models;
 
-use App\Http\Controllers\Articulos\Models\Articulo;
-use App\Http\Controllers\Categorias\Services\CategoriaQueryFilters;
+use App\Modulos\Articulos\Models\Articulo;
+use App\Modulos\Categorias\Services\CategoriaQueryFilters;
 use Illuminate\Database\Eloquent\Model;
 
 class Categoria extends Model

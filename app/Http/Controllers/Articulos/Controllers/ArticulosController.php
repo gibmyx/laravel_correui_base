@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Articulos\Controllers;
 
-use App\Http\Controllers\Articulos\FormRequest\GuardarArticulos;
-use App\Http\Controllers\Articulos\Models\Articulo;
-use App\Http\Controllers\Categorias\Models\Categoria;
+use App\Modulos\Articulos\FormRequest\GuardarArticulos;
+use App\Modulos\Articulos\Models\Articulo;
+use App\Modulos\Categorias\Models\Categoria;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -70,7 +70,7 @@ class ArticulosController extends Controller
         if (!$request->ajax()) return redirect('/');
 
         $value = array_filter($request->capture()->all());
-        $Articulos = Articulo::DeFiltro($value)->paginate(5);
+        $Articulos = Articulo::DeFiltro($value)->orderBy('id', 'desc')->paginate(5);
         $data = [
             'pagination' => [
                 'total'         => $Articulos->total(8),

@@ -66,7 +66,7 @@
 
                     </form>
                 </div>
-                <pre>{{detalle}}</pre>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     <button type="button" class="btn btn-primary" @click.prevent="GuardarCategoria" v-text="detalle.id == '' ? 'Guardar' : 'Actualizar'"></button>
