@@ -3134,27 +3134,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['name'],
   name: "ModalArticulo",
   data: function data() {
     return {
-      id: '',
-      nombre: '',
-      codigo: '',
-      precio_venta: '',
-      categoria_id: '',
-      descripcion: '',
-      condicion: '',
-      stock: '',
-      select2categoria: {
-        ajax: {
-          url: function url() {
-            return 'http://127.0.0.1:8000/proveedores/ajax_get_proveedores';
-          }
-        }
-      }
+      detalle: {
+        id: '',
+        nombre: '',
+        codigo: '',
+        precio_venta: '',
+        categoria_id: '',
+        descripcion: '',
+        condicion: '',
+        stock: ''
+      },
+      catalogos: []
     };
+  },
+  mounted: function mounted() {
+    this.getCatalogo();
   },
   methods: {
     hide: function hide() {
@@ -3162,76 +3164,65 @@ __webpack_require__.r(__webpack_exports__);
       modal.modal('hide');
     },
     show: function show() {
-      var categoria = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-      this.asignarDatos(categoria);
+      var articulo = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      this.asignarDatos(articulo);
       var modal = $('#' + this.name + 'Modal');
       modal.modal('show');
     },
-    GuardarCategoria: function GuardarCategoria() {
+    getCatalogo: function getCatalogo() {
       var _this = this;
 
+      var articulo = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      axios.post('/articulos/ajax_get_catalogos').then(function (response) {
+        console.log(response.data);
+        _this.catalogos = response.data;
+      });
+    },
+    GuardarCategoria: function GuardarCategoria() {
+      var _this2 = this;
+
       var formData = new FormData();
-      formData.append("id", this.id);
-      formData.append("nombre", this.nombre);
-      formData.append("codigo", this.codigo);
-      formData.append("precio_venta", this.precio_venta);
-      formData.append("descripcion", this.descripcion);
-      formData.append("categoria_id", this.categoria_id);
-      formData.append("stock", this.stock);
-      formData.append("condicion", this.condicion); //PARA PETICION NORMAR VER ARCHIVO: ROUTER => WEB
+      formData.append("id", this.detalle.id);
+      formData.append("nombre", this.detalle.nombre);
+      formData.append("codigo", this.detalle.codigo);
+      formData.append("precio_venta", this.detalle.precio_venta);
+      formData.append("descripcion", this.detalle.descripcion);
+      formData.append("categoria_id", this.detalle.categoria_id);
+      formData.append("stock", this.detalle.stock);
+      formData.append("condicion", this.detalle.condicion); //PARA PETICION NORMAR VER ARCHIVO: ROUTER => WEB
 
       Vue.http.post('/articulos/ajax_guardar', formData).then(function (response) {
         var mensaje = response.data.message;
 
-        _this.$toast.success({
+        _this2.$toast.success({
           title: 'Éxito',
           message: mensaje
         });
 
-        _this.$emit('listarArticulo');
+        _this2.$emit('listarArticulo');
       })["catch"](function (error) {
         var mensaje = error.body.message;
 
-        _this.$toast.error({
+        _this2.$toast.error({
           title: 'Error',
           message: mensaje
         });
       })["finally"](function () {
-        _this.hide();
+        _this2.hide();
       });
     },
-    asignarDatos: function asignarDatos(categoria) {
-      if (categoria == null) {
-        this.id = '';
-        this.nombre = '';
-        this.codigo = '';
-        this.precio_venta = '';
-        this.categoria_id = '';
-        this.descripcion = '';
-        this.stock = '';
-        this.condicion = '';
-      } else {
-        this.id = categoria.id;
-        this.nombre = categoria.nombre;
-        this.codigo = categoria.codigo;
-        this.categoria_id = categoria.categoria_id;
-        this.precio_venta = categoria.precio_venta;
-        this.descripcion = categoria.descripcion;
-        this.stock = categoria.stock;
-        this.condicion = categoria.condicion;
-      }
+    asignarDatos: function asignarDatos(articulo) {
+      this.detalle.id = _.isNull(articulo) ? '' : articulo.id;
+      this.detalle.nombre = _.isNull(articulo) ? '' : articulo.nombre;
+      this.detalle.codigo = _.isNull(articulo) ? '' : articulo.codigo;
+      this.detalle.categoria_id = _.isNull(articulo) ? '' : articulo.categoria_id;
+      this.detalle.precio_venta = _.isNull(articulo) ? '' : articulo.precio_venta;
+      this.detalle.descripcion = _.isNull(articulo) ? '' : articulo.descripcion;
+      this.detalle.stock = _.isNull(articulo) ? '' : articulo.stock;
+      this.detalle.condicion = _.isNull(articulo) ? '' : articulo.condicion;
     }
   },
-  watch: {
-    id: function id(val) {},
-    nombre: function nombre(val) {},
-    codigo: function codigo(val) {},
-    precio_venta: function precio_venta(val) {},
-    categoria_id: function categoria_id(val) {},
-    descripcion: function descripcion(val) {},
-    stock: function stock(val) {},
-    condicion: function condicion(val) {}
-  }
+  watch: {}
 });
 
 /***/ }),
@@ -24611,21 +24602,37 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { attrs: { width: "10%" } }, [_vm._v("Opciones")]),
+        _c("th", { staticClass: "text-center", attrs: { width: "10%" } }, [
+          _vm._v("Opciones")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "10%" } }, [_vm._v("Codigo")]),
+        _c("th", { staticClass: "text-center", attrs: { width: "10%" } }, [
+          _vm._v("Codigo")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "10%" } }, [_vm._v("Nombre")]),
+        _c("th", { staticClass: "text-center", attrs: { width: "10%" } }, [
+          _vm._v("Nombre")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "15%" } }, [_vm._v("Descripcion")]),
+        _c("th", { staticClass: "text-center", attrs: { width: "15%" } }, [
+          _vm._v("Descripcion")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "10%" } }, [_vm._v("Categoria")]),
+        _c("th", { staticClass: "text-center", attrs: { width: "10%" } }, [
+          _vm._v("Categoria")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "15%" } }, [_vm._v("Precio de venta")]),
+        _c("th", { staticClass: "text-center", attrs: { width: "15%" } }, [
+          _vm._v("Precio de venta")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "10%" } }, [_vm._v("Stock")]),
+        _c("th", { staticClass: "text-center", attrs: { width: "10%" } }, [
+          _vm._v("Stock")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "10%" } }, [_vm._v("Estado")])
+        _c("th", { staticClass: "text-center", attrs: { width: "10%" } }, [
+          _vm._v("Estado")
+        ])
       ])
     ])
   },
@@ -24637,7 +24644,10 @@ var staticRenderFns = [
       _c("td", { attrs: { colspan: "8" } }, [
         _c(
           "div",
-          { staticClass: "alert alert-warning", attrs: { role: "alert" } },
+          {
+            staticClass: "alert alert-warning text-center",
+            attrs: { role: "alert" }
+          },
           [
             _vm._v(
               "\n                                No se encontraron resultados\n                            "
@@ -24696,7 +24706,9 @@ var render = function() {
                 staticClass: "modal-title",
                 domProps: {
                   textContent: _vm._s(
-                    _vm.id == "" ? "Agregar artículo" : "Actualizar artículo"
+                    _vm.detalle.id == ""
+                      ? "Agregar artículo"
+                      : "Actualizar artículo"
                   )
                 }
               }),
@@ -24732,8 +24744,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.nombre,
-                            expression: "nombre"
+                            value: _vm.detalle.nombre,
+                            expression: "detalle.nombre"
                           }
                         ],
                         staticClass: "form-control",
@@ -24743,13 +24755,13 @@ var render = function() {
                           name: "nombre",
                           placeholder: "Nombre del articulo"
                         },
-                        domProps: { value: _vm.nombre },
+                        domProps: { value: _vm.detalle.nombre },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.nombre = $event.target.value
+                            _vm.$set(_vm.detalle, "nombre", $event.target.value)
                           }
                         }
                       }),
@@ -24776,8 +24788,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.codigo,
-                            expression: "codigo"
+                            value: _vm.detalle.codigo,
+                            expression: "detalle.codigo"
                           }
                         ],
                         staticClass: "form-control",
@@ -24787,13 +24799,13 @@ var render = function() {
                           name: "codigo",
                           placeholder: "codigo del articulo"
                         },
-                        domProps: { value: _vm.codigo },
+                        domProps: { value: _vm.detalle.codigo },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.codigo = $event.target.value
+                            _vm.$set(_vm.detalle, "codigo", $event.target.value)
                           }
                         }
                       })
@@ -24811,32 +24823,56 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-9" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.categoria_id,
-                            expression: "categoria_id"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          id: "categoria",
-                          name: "categoria",
-                          placeholder: "Categoria"
-                        },
-                        domProps: { value: _vm.categoria_id },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.detalle.categoria_id,
+                              expression: "detalle.categoria_id"
                             }
-                            _vm.categoria_id = $event.target.value
+                          ],
+                          staticClass: "form-control",
+                          attrs: { name: "categoria_id" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.detalle,
+                                "categoria_id",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
                           }
-                        }
-                      })
+                        },
+                        [
+                          _c("option", { attrs: { value: "" } }, [
+                            _vm._v("Seleccione")
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.catalogos.categorias, function(o) {
+                            return _c("option", {
+                              key: o.id,
+                              domProps: {
+                                value: o.id,
+                                innerHTML: _vm._s(o.nombre)
+                              }
+                            })
+                          })
+                        ],
+                        2
+                      )
                     ])
                   ]),
                   _vm._v(" "),
@@ -24856,8 +24892,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.precio_venta,
-                            expression: "precio_venta"
+                            value: _vm.detalle.precio_venta,
+                            expression: "detalle.precio_venta"
                           }
                         ],
                         staticClass: "form-control",
@@ -24867,13 +24903,17 @@ var render = function() {
                           name: "precio_venta",
                           placeholder: "Precio de venta"
                         },
-                        domProps: { value: _vm.precio_venta },
+                        domProps: { value: _vm.detalle.precio_venta },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.precio_venta = $event.target.value
+                            _vm.$set(
+                              _vm.detalle,
+                              "precio_venta",
+                              $event.target.value
+                            )
                           }
                         }
                       })
@@ -24896,8 +24936,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.descripcion,
-                            expression: "descripcion"
+                            value: _vm.detalle.descripcion,
+                            expression: "detalle.descripcion"
                           }
                         ],
                         staticClass: "form-control",
@@ -24907,13 +24947,17 @@ var render = function() {
                           name: "descripcion",
                           placeholder: "Enter Email"
                         },
-                        domProps: { value: _vm.descripcion },
+                        domProps: { value: _vm.detalle.descripcion },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.descripcion = $event.target.value
+                            _vm.$set(
+                              _vm.detalle,
+                              "descripcion",
+                              $event.target.value
+                            )
                           }
                         }
                       })
@@ -24936,8 +24980,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.stock,
-                            expression: "stock"
+                            value: _vm.detalle.stock,
+                            expression: "detalle.stock"
                           }
                         ],
                         staticClass: "form-control",
@@ -24947,13 +24991,13 @@ var render = function() {
                           name: "stock",
                           placeholder: "Stock"
                         },
-                        domProps: { value: _vm.stock },
+                        domProps: { value: _vm.detalle.stock },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.stock = $event.target.value
+                            _vm.$set(_vm.detalle, "stock", $event.target.value)
                           }
                         }
                       })
@@ -24962,6 +25006,8 @@ var render = function() {
                 ]
               )
             ]),
+            _vm._v(" "),
+            _c("pre", [_vm._v(_vm._s(_vm.detalle))]),
             _vm._v(" "),
             _c("div", { staticClass: "modal-footer" }, [
               _c(
@@ -24977,7 +25023,9 @@ var render = function() {
                 staticClass: "btn btn-primary",
                 attrs: { type: "button" },
                 domProps: {
-                  textContent: _vm._s(_vm.id == "" ? "Guardar" : "Actualizar")
+                  textContent: _vm._s(
+                    _vm.detalle.id == "" ? "Guardar" : "Actualizar"
+                  )
                 },
                 on: {
                   click: function($event) {
@@ -25546,7 +25594,10 @@ var staticRenderFns = [
       _c("td", { attrs: { colspan: "4" } }, [
         _c(
           "div",
-          { staticClass: "alert alert-warning", attrs: { role: "alert" } },
+          {
+            staticClass: "alert alert-warning text-center",
+            attrs: { role: "alert" }
+          },
           [
             _vm._v(
               "\n                                    No se encontraron resultados\n                                "

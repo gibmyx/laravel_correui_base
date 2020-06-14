@@ -5,7 +5,7 @@
         <div class="modal-dialog modal-primary modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 v-text="id == '' ? 'Agregar artículo' : 'Actualizar artículo'" class="modal-title"></h4>
+                    <h4 v-text="detalle.id == '' ? 'Agregar artículo' : 'Actualizar artículo'" class="modal-title"></h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -16,7 +16,7 @@
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                             <div class="col-md-9">
-                                <input type="text" id="nombre" name="nombre" class="form-control" v-model="nombre"
+                                <input type="text" id="nombre" name="nombre" class="form-control" v-model="detalle.nombre"
                                        placeholder="Nombre del articulo">
                                 <span class="help-block">(*) Ingrese el nombre de la artículo</span>
                             </div>
@@ -25,7 +25,7 @@
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="text-input">Codigo</label>
                             <div class="col-md-9">
-                                <input type="text" id="codigo" name="codigo" class="form-control" v-model="codigo"
+                                <input type="text" id="codigo" name="codigo" class="form-control" v-model="detalle.codigo"
                                        placeholder="codigo del articulo">
                             </div>
                         </div>
@@ -33,15 +33,17 @@
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="text-input">Categoria</label>
                             <div class="col-md-9">
-                                <input type="text" id="categoria" name="categoria" class="form-control" v-model="categoria_id"
-                                       placeholder="Categoria">
+                                <select class="form-control"  name="categoria_id"  v-model="detalle.categoria_id">
+                                    <option value="">Seleccione</option>
+                                    <option v-for="o in catalogos.categorias" :value="o.id" :key="o.id" v-html="o.nombre"></option>
+                                </select>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="text-input">Precio de venta</label>
                             <div class="col-md-9">
-                                <input type="text" id="precio_venta" name="precio_venta" class="form-control" v-model="precio_venta"
+                                <input type="text" id="precio_venta" name="precio_venta" class="form-control" v-model="detalle.precio_venta"
                                        placeholder="Precio de venta">
                             </div>
                         </div>
@@ -49,7 +51,7 @@
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="email-input">Descripción</label>
                             <div class="col-md-9">
-                                <input type="email" id="descripcion" name="descripcion" class="form-control" v-model="descripcion"
+                                <input type="email" id="descripcion" name="descripcion" class="form-control" v-model="detalle.descripcion"
                                        placeholder="Enter Email">
                             </div>
                         </div>
@@ -57,16 +59,17 @@
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="email-input">Stock</label>
                             <div class="col-md-9">
-                                <input type="email" id="stock" name="stock" class="form-control" v-model="stock"
+                                <input type="email" id="stock" name="stock" class="form-control" v-model="detalle.stock"
                                        placeholder="Stock">
                             </div>
                         </div>
 
                     </form>
                 </div>
+                <pre>{{detalle}}</pre>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" @click.prevent="GuardarCategoria" v-text="id == '' ? 'Guardar' : 'Actualizar'"></button>
+                    <button type="button" class="btn btn-primary" @click.prevent="GuardarCategoria" v-text="detalle.id == '' ? 'Guardar' : 'Actualizar'"></button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -85,24 +88,22 @@
 
         data () {
             return {
-                id: '',
-                nombre: '',
-                codigo: '',
-                precio_venta: '',
-                categoria_id: '',
-                descripcion: '',
-                condicion: '',
-                stock: '',
-
-
-                select2categoria: {
-                    ajax: {
-                        url() {
-                            return 'http://127.0.0.1:8000/proveedores/ajax_get_proveedores';
-                        }
-                    }
+                detalle: {
+                    id: '',
+                    nombre: '',
+                    codigo: '',
+                    precio_venta: '',
+                    categoria_id: '',
+                    descripcion: '',
+                    condicion: '',
+                    stock: '',
                 },
+                catalogos: [],
             }
+        },
+
+        mounted() {
+            this.getCatalogo()
         },
 
         methods: {
@@ -110,22 +111,27 @@
                 let modal = $('#' + this.name + 'Modal');
                 modal.modal('hide');
             },
-            show(categoria  = null) {
-                this.asignarDatos(categoria);
+            show(articulo  = null) {
+                this.asignarDatos(articulo);
                 let modal = $('#' + this.name + 'Modal');
                 modal.modal('show');
             },
+            getCatalogo(articulo  = null) {
+                axios.post('/articulos/ajax_get_catalogos').then((response) => {
+                    console.log(response.data);
+                    this.catalogos = response.data;
+                })
+            },
             GuardarCategoria() {
-
                 let formData = new FormData();
-                formData.append("id", this.id);
-                formData.append("nombre", this.nombre);
-                formData.append("codigo", this.codigo);
-                formData.append("precio_venta", this.precio_venta);
-                formData.append("descripcion", this.descripcion);
-                formData.append("categoria_id", this.categoria_id);
-                formData.append("stock", this.stock);
-                formData.append("condicion", this.condicion);
+                formData.append("id", this.detalle.id);
+                formData.append("nombre", this.detalle.nombre);
+                formData.append("codigo", this.detalle.codigo);
+                formData.append("precio_venta", this.detalle.precio_venta);
+                formData.append("descripcion", this.detalle.descripcion);
+                formData.append("categoria_id", this.detalle.categoria_id);
+                formData.append("stock", this.detalle.stock);
+                formData.append("condicion", this.detalle.condicion);
 
                 //PARA PETICION NORMAR VER ARCHIVO: ROUTER => WEB
                 Vue.http.post('/articulos/ajax_guardar', formData).then((response) => {
@@ -144,47 +150,20 @@
                 }).finally(() => {
                     this.hide();
                 });
-
             },
-            asignarDatos(categoria) {
-                if(categoria == null){
-                    this.id = '';
-                    this.nombre = '';
-                    this.codigo = '';
-                    this.precio_venta = '';
-                    this.categoria_id = '';
-                    this.descripcion = '';
-                    this.stock = '';
-                    this.condicion = '';
-                }else{
-                    this.id = categoria.id;
-                    this.nombre = categoria.nombre;
-                    this.codigo = categoria.codigo;
-                    this.categoria_id = categoria.categoria_id;
-                    this.precio_venta = categoria.precio_venta;
-                    this.descripcion = categoria.descripcion;
-                    this.stock = categoria.stock;
-                    this.condicion = categoria.condicion;
-                }
+
+            asignarDatos(articulo) {
+                this.detalle.id = _.isNull(articulo)? '' : articulo.id;
+                this.detalle.nombre = _.isNull(articulo)? '' : articulo.nombre;
+                this.detalle.codigo = _.isNull(articulo)? '' : articulo.codigo;
+                this.detalle.categoria_id = _.isNull(articulo)? '' : articulo.categoria_id;
+                this.detalle.precio_venta = _.isNull(articulo)? '' : articulo.precio_venta;
+                this.detalle.descripcion = _.isNull(articulo)? '' : articulo.descripcion;
+                this.detalle.stock = _.isNull(articulo)? '' : articulo.stock;
+                this.detalle.condicion = _.isNull(articulo)? '' : articulo.condicion;
             }
         },
         watch: {
-            id(val){
-            },
-            nombre(val){
-            },
-            codigo(val){
-            },
-            precio_venta(val){
-            },
-            categoria_id(val){
-            },
-            descripcion(val){
-            },
-            stock(val){
-            },
-            condicion(val){
-            },
         }
     }
 </script>

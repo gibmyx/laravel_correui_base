@@ -35,14 +35,14 @@
                     <table class="table table-bordered table-striped table-sm">
                         <thead>
                         <tr>
-                            <th width="10%">Opciones</th>
-                            <th width="10%">Codigo</th>
-                            <th width="10%">Nombre</th>
-                            <th width="15%">Descripcion</th>
-                            <th width="10%">Categoria</th>
-                            <th width="15%">Precio de venta</th>
-                            <th width="10%">Stock</th>
-                            <th width="10%">Estado</th>
+                            <th width="10%" class="text-center">Opciones</th>
+                            <th width="10%" class="text-center">Codigo</th>
+                            <th width="10%" class="text-center">Nombre</th>
+                            <th width="15%" class="text-center">Descripcion</th>
+                            <th width="10%" class="text-center">Categoria</th>
+                            <th width="15%" class="text-center">Precio de venta</th>
+                            <th width="10%" class="text-center">Stock</th>
+                            <th width="10%" class="text-center">Estado</th>
                         </tr>
                         </thead>
                         <tbody v-if="articulos.length >= 1">
@@ -58,7 +58,7 @@
                         <tbody v-else>
                         <tr>
                             <td colspan="8">
-                                <div class="alert alert-warning" role="alert">
+                                <div class="alert alert-warning text-center" role="alert">
                                     No se encontraron resultados
                                 </div>
                             </td>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Articulos\Controllers;
 
 use App\Http\Controllers\Articulos\FormRequest\GuardarArticulos;
 use App\Http\Controllers\Articulos\Models\Articulo;
+use App\Http\Controllers\Categorias\Models\Categoria;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,18 @@ class ArticulosController extends Controller
             'code' => strlen($error) ? 401 : 201,
         ];
         return response()->json($response, $response['code']);
+    }
+
+    public function ajax_get_catalogos(Request $request)
+    {
+        if (!$request->ajax()) return redirect('/');
+
+        $categorias = Categoria::where('condicion', 1)->select('id', 'nombre')->orderBy('id', 'desc')->get();
+
+        $response = [
+            'categorias' => $categorias,
+        ];
+        return response()->json($response, 201);
     }
 
     public function ajax_update_state(Request $request)

@@ -52,7 +52,7 @@
                         <tbody v-else>
                             <tr>
                                 <td colspan="4">
-                                    <div class="alert alert-warning" role="alert">
+                                    <div class="alert alert-warning text-center" role="alert">
                                         No se encontraron resultados
                                     </div>
                                 </td>
