@@ -11,8 +11,12 @@
                 <i class="icon-check"></i>
             </button>
         </td>
-        <td width="20%" v-html="o.nombre"></td>
-        <td width="20%" v-html="o.descripcion"></td>
+        <td>Codifo</td>
+        <td>Nombre</td>
+        <td>Descripcion</td>
+        <td>Categoria</td>
+        <td>Precio de venta</td>
+        <td>Stock</td>
         <td width="20%">
             <span v-if="o.condicion" class="badge badge-success">Activo</span>
             <span v-else class="badge badge-danger">Inactivo</span>
@@ -26,7 +30,7 @@
             o: Object,
         },
 
-        name: "Categoria",
+        name: "Articulo",
 
         data () {
             return {

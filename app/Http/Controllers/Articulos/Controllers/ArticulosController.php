@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Categorias\Controllers;
+namespace App\Http\Controllers\Articulos\Controllers;
 
-use App\Http\Controllers\Categorias\FormRequest\GuardarCategoria;
-use App\Http\Controllers\Categorias\Models\Categoria;
+use App\Http\Controllers\Articulos\FormRequest\GuardarArticulos;
+use App\Http\Controllers\Articulos\Models\Articulo;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CategoriasController extends Controller
+class ArticulosController extends Controller
 {
 
     public function ajax_guardar(Request $request)
@@ -18,7 +18,7 @@ class CategoriasController extends Controller
         $error = '';
 
         try {
-            (new GuardarCategoria())->save();
+            (new GuardarArticulos())->save();
         } catch (\Exception $e) {
             $error .= $e->getMessage();
         }
@@ -41,7 +41,7 @@ class CategoriasController extends Controller
           'condicion' => $value['condicion'],
         ];
         try {
-            (new GuardarCategoria())->save($params);
+            (new GuardarArticulos())->save($params);
         } catch (\Exception $e) {
             $error .= $e->getMessage();
         }
@@ -52,22 +52,22 @@ class CategoriasController extends Controller
         return response()->json($response, $response['code']);
     }
 
-    public function ajax_listar_categoria(Request $request)
+    public function ajax_listar_articulos(Request $request)
     {
         if (!$request->ajax()) return redirect('/');
 
         $value = array_filter($request->capture()->all());
-        $categorias = Categoria::DeFiltro($value)->paginate(5);
+        $Articulos = Articulo::DeFiltro($value)->paginate(5);
         $data = [
             'pagination' => [
-                'total'         => $categorias->total(8),
-                'current_page'  => $categorias->currentPage(),
-                'per_page'      => $categorias->perPage(),
-                'last_page'     => $categorias->lastPage(),
-                'from'          => $categorias->firstItem(),
-                'to'            => $categorias->lastItem(),
+                'total'         => $Articulos->total(8),
+                'current_page'  => $Articulos->currentPage(),
+                'per_page'      => $Articulos->perPage(),
+                'last_page'     => $Articulos->lastPage(),
+                'from'          => $Articulos->firstItem(),
+                'to'            => $Articulos->lastItem(),
             ],
-            'categorias' => $categorias,
+            'articulos' => $Articulos,
         ];
         return response()->json($data, 201);
     }

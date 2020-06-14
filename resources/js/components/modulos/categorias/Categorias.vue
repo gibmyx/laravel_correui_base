@@ -23,7 +23,7 @@
                                     <option value="nombre">Nombre</option>
                                     <option value="descripcion">Descripción</option>
                                 </select>
-                                <input type="text" id="texto" name="texto" class="form-control" v-model="texto"
+                                <input type="text" id="texto" name="texto" class="form-control" v-model="texto" @keyup.enter="listarCategoria"
                                        placeholder="Texto a buscar">
                                 <button type="submit" class="btn btn-primary" @click.prevent="listarCategoria"><i class="fa fa-search"></i> Buscar
                                 </button>
@@ -39,7 +39,7 @@
                                 <th width="20%">Estado</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody v-if="categorias.length > 1">
                             <tr
                                 v-bind:is="'categoria'"
                                 v-for="o in categorias"
@@ -47,6 +47,15 @@
                                 v-on:editarCategoria="ModalCategoria($event)"
                                 v-on:EliminarCategoria="ModalDeshabilitar($event)"
                                 :key="o.id">
+                            </tr>
+                        </tbody>
+                        <tbody v-else>
+                            <tr>
+                                <td colspan="4">
+                                    <div class="alert alert-warning" role="alert">
+                                        No se encontraron resultados
+                                    </div>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -70,10 +79,10 @@
 
 
         <!--Modal de agregar categoria-->
-        <modal-categoria :name="'ModalCategoria'" v-on:listarCategoria="listarCategoria"
+        <modal-categoria :name="'ModalCategoria'" v-on:listarCategoria="listarCategoria(pagination.current_page)"
                            ref="modalcategoria"></modal-categoria>
         <!--Modal de eliminar categoria-->
-        <modal-estado :name="'ModalEstado'" v-on:listarCategoria="listarCategoria"
+        <modal-estado :name="'ModalEstado'" v-on:listarCategoria="listarCategoria(pagination.current_page)"
                             ref="modalestado"></modal-estado>
     </main>
 </template>
@@ -89,8 +98,6 @@
 
         data () {
             return {
-                nombre: '',
-                descripcion: '',
                 opcion: 'nombre',
                 texto: '',
                 categorias: [],

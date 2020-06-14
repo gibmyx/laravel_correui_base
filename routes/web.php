@@ -26,6 +26,8 @@ Auth::routes();
 require base_path('/app/Http/Controllers/Herramientas/Routers/WebRouter.php');
 //RUTA DEL MODULO CATEGORIAS
 require base_path('/app/Http/Controllers/Categorias/Routers/WebRouter.php');
+//RUTA DEL MODULO CATEGORIAS
+require base_path('/app/Http/Controllers/Articulos/Routers/WebRouter.php');
 
 Route::get('/{any}', 'HomeController@index')
     ->where('any', '.*');

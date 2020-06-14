@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Categorias\FormRequest;
+namespace App\Http\Controllers\Articulos\FormRequest;
 
-use App\Http\Controllers\Categorias\Models\Categoria;
+use App\Http\Controllers\Articulos\Models\Articulo;
 use App\Http\Services\Guardar;
 use Illuminate\Support\Facades\DB;
-//use Illuminate\Database\Capsule\Manager as DB;
 
-class GuardarCategoria extends Guardar
+class GuardarArticulos extends Guardar
 {
     public function __construct()
     {
-        parent::__construct(new Categoria);
+        parent::__construct(new Articulo);
     }
 
     function create($params)
